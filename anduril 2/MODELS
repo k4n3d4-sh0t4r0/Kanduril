@@ -1,0 +1,86 @@
+Models: 78
+
+Model     MCU         Name
+-----     ---         ----
+0111      attiny85    hank-emisar-d4
+0112      attiny85    hank-emisar-d4-219
+0113      attiny1634  hank-emisar-d4v2
+0114      attiny1634  hank-emisar-d4v2-219
+0115      attiny1634  hank-emisar-d4v2-nofet
+0121      attiny85    hank-emisar-d1
+0122      attiny85    hank-emisar-d1s
+0123      attiny1634  hank-emisar-d1v2-7135-fet
+0124      attiny1634  hank-emisar-d1v2-linear-fet
+0125      attiny1634  hank-emisar-d1v2-nofet
+0131      attiny85    hank-emisar-d4s
+0132      attiny85    hank-emisar-d4s-219
+0133      attiny1634  hank-emisar-d4sv2
+0134      attiny1634  hank-emisar-d4sv2-219
+0135      attiny1634  hank-emisar-2ch
+0136      attiny1634  hank-emisar-2ch-fet
+0137      attiny1634  hank-emisar-2ch-fet-joined
+0141      attiny85    hank-emisar-d18
+0142      attiny85    hank-emisar-d18-219
+0143      attiny1634  hank-noctigon-m44
+0151      attiny1634  hank-emisar-d4k-3ch
+0161      avr32dd20   hank-emisar-d3aa
+0211      attiny1634  hank-noctigon-kr4
+0212      attiny1634  hank-noctigon-kr4-nofet
+0213      attiny1634  hank-noctigon-kr4-219
+0214      attiny1634  hank-noctigon-kr4-219b
+0215      attiny1634  hank-noctigon-kr4-2ch
+0216      attiny1634  hank-noctigon-kr4-boost
+0251      attiny1634  hank-noctigon-k1
+0252      attiny1634  hank-noctigon-k1-sbt90
+0253      attiny1634  hank-noctigon-k1-boost
+0261      attiny1634  hank-noctigon-k9.3
+0262      attiny1634  hank-noctigon-k9.3-nofet
+0263      attiny1634  hank-noctigon-k9.3-219
+0265      attiny1634  noctigon-k9.3-tintramp-nofet  (old, use 0262)
+0266      attiny1634  noctigon-k9.3-tintramp-fet    (old, use 0261)
+0267      attiny1634  noctigon-k9.3-tintramp-219    (old, use 0263)
+0271      attiny1634  hank-noctigon-dm11
+0272      attiny1634  hank-noctigon-dm11-nofet
+0273      attiny1634  hank-noctigon-dm11-boost
+0274      attiny1634  hank-noctigon-dm11-sbt90
+0311      attiny85    lumintop-fw3a
+0312      attiny85    lumintop-fw3a-219
+0313      attiny85    lumintop-fw3a-nofet
+0314      attiny1634  lumintop-fw3x-lume1
+0315      attiny1634  lumintop-fw3x-lume1-rgbswap
+0321      attiny85    lumintop-blf-gt
+0322      attiny85    lumintop-blf-gt-mini
+0411      attiny85    fireflies-rot66
+0412      attiny85    fireflies-rot66-219
+0413      attiny85    fireflies-rot66g2
+0421      attiny85    fireflies-pl47
+0422      attiny85    fireflies-pl47-219
+0423      attiny85    fireflies-pl47g2
+0424      attiny85    fireflies-pl47g2-219
+0441      attiny85    fireflies-e01
+0511      attiny85    mateminco-mf01s
+0521      attiny85    mateminco-mf01-mini
+0531      attiny85    mateminco-mt35-mini
+0611      attiny85    sofirn-blf-q8
+0612      attiny85    sofirn-sp36
+0613      attiny1616  sofirn-blf-q8-t1616
+0614      attiny1616  sofirn-sp36-t1616
+0621      attiny85    sofirn-blf-lt1
+0622      attiny1616  sofirn-blf-lt1-t1616
+0623      attiny1616  sofirn-lt1s-pro
+0631      attiny1616  sofirn-sp10-pro
+0632      attiny1616  sofirn-sc21-pro
+0713      attiny1616  wurkkos-ts10-rgbaux
+0714      attiny1616  wurkkos-ts10
+0715      attiny1616  wurkkos-ts25 (may need 0716 / 0717 on some models)
+0716      attiny1616  wurkkos-fc13 (may ship with 0715) (also, TS30S Pro)
+0717      attiny1616  wurkkos-ts11 (may ship with 0715)
+1618      attiny1616  gchart-fet1-t1616
+1630      attiny1616  thefreeman-lin16dac
+1631      attiny1616  thefreeman-boost21-mp3431-hdr-dac-argb
+1632      attiny1616  thefreeman-boost-fwaa-mp3432-hdr-dac-rgb
+1632dd20  avr32dd20   thefreeman-avr32dd20-devkit
+
+Duplicates:
+
+Missing:
