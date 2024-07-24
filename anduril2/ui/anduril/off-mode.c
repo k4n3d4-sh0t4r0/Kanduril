@@ -209,7 +209,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     }
 
     #ifdef USE_BATTCHECK
-    // 3 clicks: battcheck mode / blinky mode group 1
+    // 5 clicks: battcheck mode / blinky mode group 1
     else if (event == EV_5clicks && cfg.simple_ui_active != 1) {
         set_state(battcheck_state, 0);
         return EVENT_HANDLED;

@@ -4,7 +4,8 @@ My configuration for anduril 2 firmware
 
 ## Changes
 
-### Recreate a muggle mode like Anduril 1 (replace simple ui)
+<details>
+  <summary>Recreate a muggle mode like Anduril 1 (replace simple ui)</summary> 
 
 - Limit the ceiling of simple ui \
 set `#define SIMPLE_UI_CEIL` to `40` \
@@ -15,8 +16,212 @@ set `#define SIMPLE_UI_STEPS` to `3` \
 *anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
 
 - Disable battery check on simple ui \
-add `&& cfg.simple_ui_active != 1` as a condition in the else if \
+add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_BATTCHECK` \
 *anduril2/ui/anduril/off-mode.c*
+
+- Disable strobe mode on simple ui \
+add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_STROBE_STATE` \
+*anduril2/ui/anduril/off-mode.c*
+
+- Disable boring strobe mode on simple ui \
+add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_BORING_STROBE_STATE` \
+*anduril2/ui/anduril/off-mode.c*
+
+- Disable lockout mode on simple ui \
+add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_LOCKOUT_MODE` \
+*anduril2/ui/anduril/off-mode.c*
+
+- Disable version check on simple ui \
+add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_VERSION_CHECK` \
+*anduril2/ui/anduril/off-mode.c*
+</details>
+
+<details>
+  <summary>Switch SOS and Beacon mode to make SOS first</summary>
+
+- Change order on battery check state 
+  ```
+  else if (event == EV_2clicks) {
+      #if defined(USE_THERMAL_REGULATION)
+      set_state(tempcheck_state, 0);
+      #elif defined(USE_SOS_MODE) && defined(USE_SOS_MODE_IN_BLINKY_GROUP)
+      set_state(sos_state, 0);
+      #elif defined(USE_BEACON_MODE)
+      set_state(beacon_state, 0);
+      #endif
+      return EVENT_HANDLED;
+  }
+  ```
+  *anduril2/ui/anduril/battcheck-mode.c*
+
+- Change order on temperature check state 
+  ```
+  else if (event == EV_2clicks) {
+      #if defined(USE_SOS_MODE) && defined(USE_SOS_MODE_IN_BLINKY_GROUP)
+      set_state(sos_state, 0);
+      #elif defined(USE_BEACON_MODE)
+      set_state(beacon_state, 0);
+      #elif defined(USE_BATTCHECK)
+      set_state(battcheck_state, 0);
+      #endif
+      return EVENT_HANDLED;
+  }
+  ```
+  *anduril2/ui/anduril/tempcheck-mode.c*
+
+- Change order on sos mode state 
+  ```
+  else if (event == EV_2clicks) {
+      #if defined(USE_BEACON_MODE)
+      set_state(beacon_state, 0);
+      #elif defined(USE_BATTCHECK_MODE)
+      set_state(battcheck_state, 0);
+      #elif defined(USE_THERMAL_REGULATION)
+      set_state(tempcheck_state, 0);
+      #endif
+      return EVENT_HANDLED;
+  }
+  ```
+  *anduril2/ui/anduril/sos-mode.c*
+
+- Change order on beacon mode state 
+  ```
+  else if (event == EV_2clicks) {
+      #if defined(USE_BATTCHECK)
+      set_state(battcheck_state, 0);
+      #elif defined(USE_THERMAL_REGULATION)
+      set_state(tempcheck_state, 0);
+      #elif defined(USE_SOS_MODE) && defined(USE_SOS_MODE_IN_BLINKY_GROUP)
+      set_state(sos_state, 0);
+      #endif
+      return EVENT_HANDLED;
+  }
+  ```
+  *anduril2/ui/anduril/beacon-mode.c*
+</details>
+
+<details>
+  <summary>Set default RGB aux to my preferences</summary>
+
+- Disable the Hank's hardware preset for the aux \
+comment `#define RGB_LED_OFF_DEFAULT 0x18` \
+*anduril2/hw/hank/anduril.h*
+
+- Set the aux on low cyan when off \
+set `#define RGB_LED_OFF_DEFAULT` to `0x13` \
+*anduril2/ui/anduril/aux-leds.h*
+
+- Set the aux on low voltage when lock \
+set `#define RGB_LED_LOCKOUT_DEFAULT` to `0x19` \
+*anduril2/ui/anduril/aux-leds.h*
+</details>
+
+<details>
+  <summary>Don't ramp after moon by default</summary>
+
+- Deactivate option to ramp after moon \
+add `#define DEFAULT_DONT_RAMP_AFTER_MOON 1` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Set the post off voltage to 1sec by default</summary>
+
+- add `#define DEFAULT_POST_OFF_VOLTAGE_SECONDS 1` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Set floor to 8 by default to avoid flickering</summary>
+
+- Set 8 for smooth floor \
+set `#define RAMP_SMOOTH_FLOOR` to `8` \
+*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+
+- Set 8 for discrete floor \
+set `#define RAMP_DISCRETE_FLOOR` to `8` \
+*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+</details>
+
+<details>
+  <summary>Set ramp speed a 1/2 speed</summary>
+
+- Set to 2 for 1/2 \
+add `#define DEFAULT_RAMP_SPEED 2` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Disable moon mode when lock</summary>
+
+- comment `#define USE_MOON_DURING_LOCKOUT_MODE` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Blink with the red channel instead of main</summary>
+
+- set `#define DEFAULT_BLINK_CHANNEL` to `CM_AUXRED` \
+*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+</details>
+
+<details>
+  <summary>Disable the blink in the middle</summary>
+
+- comment `#define BLINK_AT_RAMP_MIDDLE` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Enable police strobe</summary>
+
+- uncomment `#define USE_POLICE_STROBE_MODE` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Set 55 for temp limit</summary>
+
+- For sloppy temperature sensor \
+set `#define DEFAULT_THERM_CEIL` to `50` \
+*anduril2/ui/anduril/config-default.h*
+
+- For accurate temperature sensor \
+set `#define DEFAULT_THERM_CEIL` to `55` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Disable tactical mode</summary>
+
+- Kinda useless mode in my use \
+comment `#define USE_TACTICAL_MODE` \
+*anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Battery check on 5C instead of momentary</summary>
+
+- Disable momentary \
+comment `#define USE_MOMENTARY_MODE` \
+*anduril2/ui/anduril/config-default.h*
+
+- Change shortcut to USE_BATTCHECK \
+replace `event == EV_3clicks` with `event == EV_5clicks` \
+*anduril2/ui/anduril/off-mode.c*
+</details>
+
+<details>
+  <summary>2C goes to turbo advanced and ceiling simple (like anduril 1)</summary>
+
+- Set the default style for advanced \
+uncomment `#define DEFAULT_2C_STYLE` and set it to `1` \
+*anduril2/ui/anduril/config-default.h*
+
+- Set the default style for simple \
+uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
+*anduril2/ui/anduril/config-default.h*
+</details>
 
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit
 
