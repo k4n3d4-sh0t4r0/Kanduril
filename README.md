@@ -1,2 +1,2 @@
 # Kanduril
-My configuration for anduril firmware
+My configuration for anduril 2 firmware
