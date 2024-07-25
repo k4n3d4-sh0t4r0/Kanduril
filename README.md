@@ -1,6 +1,8 @@
 # Kanduril
 
-My configuration for anduril 2 firmware
+My configuration for anduril 2 firmware on my D4K single channel
+
+It may not work properly on other flashlights, so I'm describing everything I changed and where I changed it in each drop-down list.
 
 ## Changes
 
