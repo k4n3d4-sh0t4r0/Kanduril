@@ -23,7 +23,7 @@ function main {
 
     mkdir -p hex
 
-    # make-version-h  # generate a version.h file
+    make-version-h  # generate a version.h file
 
     PASS=0
     FAIL=0
