@@ -6686,7 +6686,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "25-07-2024";
+             uint8_t version_number[] = "0273" "." "25-07-2024-2";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -7057,7 +7057,6 @@ uint8_t off_state(Event event, uint16_t arg) {
     }
     // 3 clicks: momentary mode
     else if (event == (0b10000000|0b01000000|3)) {
-        blink_once();
         set_state(momentary_state, 0);
         return 0;
     }
@@ -7339,11 +7338,9 @@ uint8_t steady_state(Event event, uint16_t arg) {
         set_level_and_therm_target(memorized_level);
         return 0;
     }
-    // 3 clicks: shortcut to momentary mode
+    // 3 clicks: momentary mode
     else if (event == (0b10000000|0b01000000|3)) {
-        memorized_level = actual_level; // allow turbo in momentary mode
-        set_level(0);
-        set_state(momentary_state, 0);
+        set_state(momentary_state, momentary_mode = 1);
         return 0;
     }
     // 7H: configure this ramp mode
@@ -8165,11 +8162,21 @@ uint8_t autolock_config_state(Event event, uint16_t arg) {
 uint8_t momentary_state(Event event, uint16_t arg) {
     // 1 click: off
     if (event == (0b10000000|0b01000000|1)) {
-        set_state(off_state, 0);
-        return 0;
+        if (momentary_mode == 1) {
+            set_state(steady_state, memorized_level);
+            return 0;
+        }
+        else {
+            set_state(off_state, 0);
+            return 0;
+        }
     }
+    // turn off main leds
+    set_level(0);
     // set the aux leds to high red
     set_level_auxred(1);
+    // set the button leds to low
+    button_led_set(1);
     return 0;
 }
 // channel-modes.c: Multi-channel functions for Anduril.

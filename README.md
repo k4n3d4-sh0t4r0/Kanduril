@@ -226,25 +226,53 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
 <details>
   <summary>Replace momentary to turn on high red aux leds and activate by 3C</summary>
 
-- Change shortcut to USE_MOMENTARY_MODE when off\
-replace `event == EV_5clicks` with `event == EV_3clicks` \
-*anduril2/ui/anduril/off-mode.c*
+- Change shortcut ro enter momentary state in off mode
+  ```
+  #ifdef USE_MOMENTARY_MODE
+   // 3 clicks: momentary mode
+   else if (event == EV_3clicks) {
+      set_state(momentary_state, 0);
+      return EVENT_HANDLED;
+  }
+  #endif
+  ```
+  *anduril2/ui/anduril/off-mode.c*
 
-- Change shortcut to USE_MOMENTARY_MODE when on\
-replace `event == EV_5clicks` with `event == EV_3clicks` \
-*anduril2/ui/anduril/off-mode.c*
+- Change shortcut to enter momentary state in ramp mode
+  ```
+  #ifdef USE_MOMENTARY_MODE
+   // 3 clicks: momentary mode
+   else if (event == EV_3clicks) {
+      set_state(momentary_state, momentary_mode = 1);;
+      return EVENT_HANDLED;
+  }
+  #endif
+  ```
+  *anduril2/ui/anduril/ramp-mode.c*
 
 - Change momentary state 
   ```
   uint8_t momentary_state(Event event, uint16_t arg) {
       // 1 click: off
       if (event == EV_1click) {
-          set_state(off_state, 0);
-          return EVENT_HANDLED;
+         // if entered from ramp mode exit to ramp mode
+          if (momentary_mode == 1) {
+              set_state(steady_state, memorized_level);
+              return EVENT_HANDLED;
+          }
+          // if entered from off mode exit to off mode
+          else {
+              set_state(off_state, 0);
+              return EVENT_HANDLED;
+          }
       }
 
+      // turn off main leds
+      set_level(0);
       // set the aux leds to high red
       set_level_auxred(1);
+      // set the button leds to low
+      button_led_set(1);
       return EVENT_HANDLED;
   }
   ```
