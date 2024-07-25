@@ -245,6 +245,7 @@ replace `event == EV_5clicks` with `event == EV_3clicks` \
 
       // set the aux leds to high red
       set_level_auxred(1);
+      return EVENT_HANDLED;
   }
   ```
   *anduril2/ui/anduril/momentary-mode.c*

@@ -15,5 +15,6 @@ uint8_t momentary_state(Event event, uint16_t arg) {
 
     // set the aux leds to high red
     set_level_auxred(1);
+    return EVENT_HANDLED;
 }
 

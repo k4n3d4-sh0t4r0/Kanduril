@@ -6686,7 +6686,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "0.cb17d89";
+             uint8_t version_number[] = "0273" "." "25-07-2024";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -7055,7 +7055,7 @@ uint8_t off_state(Event event, uint16_t arg) {
         save_config();
         return 0;
     }
-    // 5 clicks: momentary mode
+    // 3 clicks: momentary mode
     else if (event == (0b10000000|0b01000000|3)) {
         blink_once();
         set_state(momentary_state, 0);
@@ -7339,8 +7339,8 @@ uint8_t steady_state(Event event, uint16_t arg) {
         set_level_and_therm_target(memorized_level);
         return 0;
     }
-    // 5 clicks: shortcut to momentary mode
-    else if (event == (0b10000000|0b01000000|5)) {
+    // 3 clicks: shortcut to momentary mode
+    else if (event == (0b10000000|0b01000000|3)) {
         memorized_level = actual_level; // allow turbo in momentary mode
         set_level(0);
         set_state(momentary_state, 0);
@@ -8168,8 +8168,9 @@ uint8_t momentary_state(Event event, uint16_t arg) {
         set_state(off_state, 0);
         return 0;
     }
+    // set the aux leds to high red
     set_level_auxred(1);
-    //rgb_led_set(0x23);
+    return 0;
 }
 // channel-modes.c: Multi-channel functions for Anduril.
 // Copyright (C) 2017-2023 Selene ToyKeeper
