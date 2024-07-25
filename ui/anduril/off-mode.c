@@ -344,7 +344,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     #endif  // ifdef USE_SIMPLE_UI
 
     #ifdef USE_MOMENTARY_MODE
-    // 5 clicks: momentary mode
+    // 3 clicks: momentary mode
     else if (event == EV_3clicks) {
         blink_once();
         set_state(momentary_state, 0);

@@ -388,7 +388,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
     // 3 clicks: toggle smooth vs discrete ramping
     // (and/or 6 clicks when there are multiple channel modes)
     // (handle 3C here anyway, when all but 1 mode is disabled)
-    else if ((event == EV_3clicks)
+    else if ((event == EV_6clicks)
         #if NUM_CHANNEL_MODES > 1
              || (event == EV_6clicks)
         ) {
@@ -466,8 +466,8 @@ uint8_t steady_state(Event event, uint16_t arg) {
     }
 
     #ifdef USE_MOMENTARY_MODE
-    // 5 clicks: shortcut to momentary mode
-    else if (event == EV_5clicks) {
+    // 3 clicks: shortcut to momentary mode
+    else if (event == EV_3clicks) {
         memorized_level = actual_level;  // allow turbo in momentary mode
         set_level(0);
         set_state(momentary_state, 0);

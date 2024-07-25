@@ -204,9 +204,7 @@ comment `#define USE_TACTICAL_MODE` \
 <details>
   <summary>Battery check on 5C instead of momentary</summary>
 
-- Disable momentary \
-comment `#define USE_MOMENTARY_MODE` \
-*anduril2/ui/anduril/config-default.h*
+- MAKE SURE MOMENTARY IS DISABLE OR SET TO ANOTHER SHORTCUT
 
 - Change shortcut to USE_BATTCHECK \
 replace `event == EV_3clicks` with `event == EV_5clicks` \
@@ -223,6 +221,34 @@ uncomment `#define DEFAULT_2C_STYLE` and set it to `1` \
 - Set the default style for simple \
 uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
 *anduril2/ui/anduril/config-default.h*
+</details>
+
+<details>
+  <summary>Replace momentary to turn on high red aux leds and activate by 3C</summary>
+
+- Change shortcut to USE_MOMENTARY_MODE when off\
+replace `event == EV_5clicks` with `event == EV_3clicks` \
+*anduril2/ui/anduril/off-mode.c*
+
+- Change shortcut to USE_MOMENTARY_MODE when on\
+replace `event == EV_5clicks` with `event == EV_3clicks` \
+*anduril2/ui/anduril/off-mode.c*
+
+- Change momentary state 
+  ```
+  uint8_t momentary_state(Event event, uint16_t arg) {
+      // 1 click: off
+      if (event == EV_1click) {
+          set_state(off_state, 0);
+          return EVENT_HANDLED;
+      }
+
+      // set the aux leds to high red
+      set_level_auxred(1);
+  }
+  ```
+  *anduril2/ui/anduril/momentary-mode.c*
+
 </details>
 
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit

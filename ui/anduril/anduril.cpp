@@ -3220,7 +3220,6 @@ inline void prevent_reboot_loop();
 //#define USE_MOON_DURING_LOCKOUT_MODE
 // add an optional setting to lock the light after being off for a while
 // enable momentary mode
-//#define USE_MOMENTARY_MODE
 // enable tactical mode
 //#define USE_TACTICAL_MODE
 // enable a shortcut for +10 in number entry mode
@@ -6687,7 +6686,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "26-07-2024-1";
+             uint8_t version_number[] = "0273" "." "0.cb17d89";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6718,6 +6717,14 @@ void thermal_config_save(uint8_t step, uint8_t value);
 // soft lockout
 uint8_t lockout_state(Event event, uint16_t arg);
 uint8_t autolock_config_state(Event event, uint16_t arg);
+// momentary-mode.h: Momentary mode for Anduril.
+// Copyright (C) 2017-2023 Selene ToyKeeper
+// SPDX-License-Identifier: GPL-3.0-or-later
+       
+// momentary / signalling mode
+uint8_t momentary_state(Event event, uint16_t arg);
+uint8_t momentary_mode = 0; // 0 = ramping, 1 = strobe
+uint8_t momentary_active = 0; // boolean, true if active *right now*
 // allow the channel mode handler even when only 1 mode
 // (so a tint ramp light could still use 3H even if there's no other mode)
 // channel-modes.h: Multi-channel functions for Anduril.
@@ -7048,6 +7055,12 @@ uint8_t off_state(Event event, uint16_t arg) {
         save_config();
         return 0;
     }
+    // 5 clicks: momentary mode
+    else if (event == (0b10000000|0b01000000|3)) {
+        blink_once();
+        set_state(momentary_state, 0);
+        return 0;
+    }
     // 9 clicks, but hold last click: configure misc global settings
     else if ((event == (0b10000000|0b00100000|0b00010000|9)) && (!arg)) {
         push_state(globals_config_state, 0);
@@ -7106,6 +7119,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
     }
     // turn LED on when we first enter the mode
     if ((event == (0b00000000|0b00001000)) || (event == (0b00000000|0b00001010))) {
+        momentary_mode = 0; // 0 = ramping, 1 = strobes
         // if we just got back from config mode, go back to memorized level
         if (event == (0b00000000|0b00001010)) {
             arg = memorized_level;
@@ -7285,7 +7299,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
     // 3 clicks: toggle smooth vs discrete ramping
     // (and/or 6 clicks when there are multiple channel modes)
     // (handle 3C here anyway, when all but 1 mode is disabled)
-    else if ((event == (0b10000000|0b01000000|3))
+    else if ((event == (0b10000000|0b01000000|6))
              || (event == (0b10000000|0b01000000|6))
         ) {
             // detect if > 1 channel mode is enabled,
@@ -7323,6 +7337,13 @@ uint8_t steady_state(Event event, uint16_t arg) {
     else if ((event == (0b10000000|0b00100000|0b00000000|0b01000000|3))
         ) {
         set_level_and_therm_target(memorized_level);
+        return 0;
+    }
+    // 5 clicks: shortcut to momentary mode
+    else if (event == (0b10000000|0b01000000|5)) {
+        memorized_level = actual_level; // allow turbo in momentary mode
+        set_level(0);
+        set_state(momentary_state, 0);
         return 0;
     }
     // 7H: configure this ramp mode
@@ -8137,6 +8158,19 @@ void autolock_config_save(uint8_t step, uint8_t value) {
 uint8_t autolock_config_state(Event event, uint16_t arg) {
     return config_state_base(event, arg, 1, autolock_config_save);
 }
+// momentary-mode.c: Momentary mode for Anduril.
+// Copyright (C) 2017-2023 Selene ToyKeeper
+// SPDX-License-Identifier: GPL-3.0-or-later
+       
+uint8_t momentary_state(Event event, uint16_t arg) {
+    // 1 click: off
+    if (event == (0b10000000|0b01000000|1)) {
+        set_state(off_state, 0);
+        return 0;
+    }
+    set_level_auxred(1);
+    //rgb_led_set(0x23);
+}
 // channel-modes.c: Multi-channel functions for Anduril.
 // Copyright (C) 2017-2023 Selene ToyKeeper
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -8252,6 +8286,7 @@ uint8_t strobe_state(Event event, uint16_t arg) {
     static int8_t ramp_direction = 1;
     // 'st' reduces ROM size slightly
     strobe_mode_te st = current_strobe_type;
+    momentary_mode = 1; // 0 = ramping, 1 = strobes
     // pass all events to candle mode, when it's active
     // (the code is in its own pseudo-state to keep things cleaner)
     if (st == candle_mode_e) {
@@ -8345,6 +8380,12 @@ uint8_t strobe_state(Event event, uint16_t arg) {
     // release hold: save new strobe settings
     else if (event == (0b10000000|0b00100000|0b00000000|0b01000000|2)) {
         save_config();
+        return 0;
+    }
+    // 5 clicks: go to momentary mode (momentary strobe)
+    else if (event == (0b10000000|0b01000000|5)) {
+        set_state(momentary_state, 0);
+        set_level(0);
         return 0;
     }
     // clock tick: bump the random seed
@@ -8720,6 +8761,11 @@ void loop() {
         version_check_iter();
     }
     else if ((state == strobe_state)
+         // also handle momentary strobes
+         || ((0
+              || (state == momentary_state)
+             )
+             && (momentary_mode == 1) && (momentary_active))
          ) {
         strobe_state_iter();
     }
