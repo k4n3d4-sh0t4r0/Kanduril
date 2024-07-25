@@ -2,7 +2,7 @@
 
 My configuration for anduril 2 firmware on my D4K single channel
 
-It may not work properly on other flashlights, so I'm describing everything I changed and where I changed it in each drop-down list.
+It may not work properly on other flashlights as it's based and work on the model n°0273. I'm describing everything I changed and where I changed it in each drop-down list if you want to do the same as my configuration.
 
 ## Changes
 
