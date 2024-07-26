@@ -2,7 +2,7 @@
 
 My configuration for anduril 2 firmware on my D4K single channel
 
-It may not work properly on other flashlights as it's based and work on the model n°0273. I'm describing everything I changed and where I changed it in each drop-down list if you want to do the same as my confiuration.
+It may not work properly on other flashlights as it's based and work on the model n°0273. I'm describing everything I changed and where I changed it in each drop-down list if you want to do the same as my configuration.
 
 ## Changes
 
@@ -241,39 +241,69 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
 - Change shortcut to enter momentary state in ramp mode
   ```
   #ifdef USE_MOMENTARY_MODE
-   // 3 clicks: momentary mode
-   else if (event == EV_3clicks) {
-      set_state(momentary_state, momentary_mode = 1);;
+    // 3 clicks: momentary mode
+    else if (event == EV_3clicks) {
+      if (actual_level == ramp_floor){
+        set_state(momentary_state, momentary_mode = 2);
+        return EVENT_HANDLED;
+      }
+      else if (actual_level == MAX_LEVEL){
+        set_state(momentary_state, momentary_mode = 3);
+        return EVENT_HANDLED;
+      }
+      else {
+      set_state(momentary_state, momentary_mode = 1);
       return EVENT_HANDLED;
+      }
   }
   #endif
   ```
   *anduril2/ui/anduril/ramp-mode.c*
 
+- Change the enter state event of the steady state so that it doesn't make the nearest level when in turbo mode \
+replace `arg = nearest_level(arg);` by `if (arg != MAX_LEVEL) { arg = nearest_level(arg); }` \
+*anduril2/ui/anduril/ramp-mode.c*
+
 - Change momentary state 
   ```
   uint8_t momentary_state(Event event, uint16_t arg) {
-      // 1 click: off
-      if (event == EV_1click) {
-         // if entered from ramp mode exit to ramp mode
-          if (momentary_mode == 1) {
-              set_state(steady_state, memorized_level);
-              return EVENT_HANDLED;
-          }
-          // if entered from off mode exit to off mode
-          else {
-              set_state(off_state, 0);
-              return EVENT_HANDLED;
-          }
+    // 1 click: return to previous mode
+    if (event == EV_1click) {
+      // if entered from ramp mode exit to ramp mode
+      if (momentary_mode == 1) {
+        set_state(steady_state, memorized_level);
+        return EVENT_HANDLED;
       }
+      // if entered from moon mode exit to moon mode
+      else if (momentary_mode == 2) {
+        set_state(steady_state, nearest_level(1));
+        return EVENT_HANDLED;
+      }
+      // if entered from turbo mode exit to turbo mode
+      else if (momentary_mode == 3) {
+        set_state(steady_state, MAX_LEVEL);
+        return EVENT_HANDLED;
+      }
+      // if entered from off mode exit to off mode
+      else {
+        set_state(off_state, 0);
+        return EVENT_HANDLED;
+      }
+    }
 
-      // turn off main leds
-      set_level(0);
-      // set the aux leds to high red
-      set_level_auxred(1);
-      // set the button leds to low
-      button_led_set(1);
-      return EVENT_HANDLED;
+    // 1 click hold: off
+    if (event == EV_click1_hold_release) {
+        set_state(off_state, 0);
+        return EVENT_HANDLED;
+    }
+
+    // turn off main leds
+    set_level(0);
+    // set the aux leds to high red
+    set_level_auxred(1);
+    // set the button leds to low
+    button_led_set(1);
+    return EVENT_HANDLED;
   }
   ```
   *anduril2/ui/anduril/momentary-mode.c*

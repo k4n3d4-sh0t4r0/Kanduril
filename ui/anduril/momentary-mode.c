@@ -7,11 +7,21 @@
 #include "anduril/momentary-mode.h"
 
 uint8_t momentary_state(Event event, uint16_t arg) {
-    // 1 click: off
+    // 1 click: return to previous mode
     if (event == EV_1click) {
         // if entered from ramp mode exit to ramp mode
         if (momentary_mode == 1) {
             set_state(steady_state, memorized_level);
+            return EVENT_HANDLED;
+        }
+        // if entered from moon mode exit to moon mode
+        else if (momentary_mode == 2) {
+            set_state(steady_state, nearest_level(1));
+            return EVENT_HANDLED;
+        }
+        // if entered from turbo mode exit to turbo mode
+        else if (momentary_mode == 3) {
+            set_state(steady_state, MAX_LEVEL);
             return EVENT_HANDLED;
         }
         // if entered from off mode exit to off mode
@@ -19,6 +29,12 @@ uint8_t momentary_state(Event event, uint16_t arg) {
             set_state(off_state, 0);
             return EVENT_HANDLED;
         }
+    }
+
+    // 1 click hold: off
+    if (event == EV_click1_hold_release) {
+        set_state(off_state, 0);
+        return EVENT_HANDLED;
     }
 
     // turn off main leds

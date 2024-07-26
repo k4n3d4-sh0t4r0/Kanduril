@@ -104,7 +104,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
         if ((arg > mode_min) && (arg < mode_max))
             memorized_level = arg;
         // use the requested level even if not memorized
-        arg = nearest_level(arg);
+        if (arg != MAX_LEVEL) { arg = nearest_level(arg); }
         set_level_and_therm_target(arg);
         ramp_direction = 1;
         return EVENT_HANDLED;
@@ -468,8 +468,18 @@ uint8_t steady_state(Event event, uint16_t arg) {
     #ifdef USE_MOMENTARY_MODE
     // 3 clicks: momentary mode
     else if (event == EV_3clicks) {
+        if (actual_level == ramp_floor){
+            set_state(momentary_state, momentary_mode = 2);
+            return EVENT_HANDLED;
+        }
+        else if (actual_level == MAX_LEVEL){
+            set_state(momentary_state, momentary_mode = 3);
+            return EVENT_HANDLED;
+        }
+        else {
         set_state(momentary_state, momentary_mode = 1);
         return EVENT_HANDLED;
+        }
     }
     #endif
 

@@ -6686,7 +6686,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "25-07-2024-2";
+             uint8_t version_number[] = "0273" "." "26-07-2024";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -7127,7 +7127,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
         if ((arg > mode_min) && (arg < mode_max))
             memorized_level = arg;
         // use the requested level even if not memorized
-        arg = nearest_level(arg);
+        if (arg != 150) { arg = nearest_level(arg); }
         set_level_and_therm_target(arg);
         ramp_direction = 1;
         return 0;
@@ -7340,8 +7340,18 @@ uint8_t steady_state(Event event, uint16_t arg) {
     }
     // 3 clicks: momentary mode
     else if (event == (0b10000000|0b01000000|3)) {
+        if (actual_level == ramp_floor){
+            set_state(momentary_state, momentary_mode = 2);
+            return 0;
+        }
+        else if (actual_level == 150){
+            set_state(momentary_state, momentary_mode = 3);
+            return 0;
+        }
+        else {
         set_state(momentary_state, momentary_mode = 1);
         return 0;
+        }
     }
     // 7H: configure this ramp mode
     else if (event == (0b10000000|0b00100000|0b00010000|7)) {
@@ -8160,16 +8170,33 @@ uint8_t autolock_config_state(Event event, uint16_t arg) {
 // SPDX-License-Identifier: GPL-3.0-or-later
        
 uint8_t momentary_state(Event event, uint16_t arg) {
-    // 1 click: off
+    // 1 click: return to previous mode
     if (event == (0b10000000|0b01000000|1)) {
+        // if entered from ramp mode exit to ramp mode
         if (momentary_mode == 1) {
             set_state(steady_state, memorized_level);
             return 0;
         }
+        // if entered from moon mode exit to moon mode
+        else if (momentary_mode == 2) {
+            set_state(steady_state, nearest_level(1));
+            return 0;
+        }
+        // if entered from turbo mode exit to turbo mode
+        else if (momentary_mode == 3) {
+            set_state(steady_state, 150);
+            return 0;
+        }
+        // if entered from off mode exit to off mode
         else {
             set_state(off_state, 0);
             return 0;
         }
+    }
+    // 1 click hold: off
+    if (event == (0b10000000|0b00100000|0b00000000|0b01000000|1)) {
+        set_state(off_state, 0);
+        return 0;
     }
     // turn off main leds
     set_level(0);
@@ -8294,7 +8321,9 @@ uint8_t strobe_state(Event event, uint16_t arg) {
     static int8_t ramp_direction = 1;
     // 'st' reduces ROM size slightly
     strobe_mode_te st = current_strobe_type;
-    momentary_mode = 1; // 0 = ramping, 1 = strobes
+    //#if defined(USE_MOMENTARY_MODE) || defined(USE_TACTICAL_MODE)
+    //momentary_mode = 1;  // 0 = ramping, 1 = strobes
+    //#endif
     // pass all events to candle mode, when it's active
     // (the code is in its own pseudo-state to keep things cleaner)
     if (st == candle_mode_e) {
