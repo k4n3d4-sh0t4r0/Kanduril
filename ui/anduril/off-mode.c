@@ -19,7 +19,13 @@ uint8_t off_state(Event event, uint16_t arg) {
     // turn emitter off when entering state
     if (event == EV_enter_state) {
         // turn off
+        if (prev_in_moon == 1) {
+            set_level(0);
+            prev_in_moon = 0;
+        }
+        else {
         off_state_set_level(0);
+        }
         #ifdef USE_SMOOTH_STEPS
             // don't go to sleep while animating
             arg |= smooth_steps_in_progress;

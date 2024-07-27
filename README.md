@@ -224,6 +224,66 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
 </details>
 
 <details>
+  <summary>Change the turbo shortcut to go to memorized level on 1C instead of 2C if entered from ramp && avoid the blink when turning off from moon</summary>
+
+- Add some thing that will be usefull in the next steps \
+  ```
+  uint8_t prev_in_ramp = 0;
+  uint8_t prev_in_moon = 0;
+  ```
+  *anduril2/ui/anduril/ramp-mode.h*
+
+- Change the 1 click event on ramp \
+  ```
+  else if (event == EV_1click) {
+        if (actual_level == MAX_LEVEL && prev_in_ramp == 1) {
+            prev_in_ramp = 0;
+            set_level_and_therm_target(memorized_level);
+        }
+        else {
+            if (actual_level == nearest_level(0)) {
+                prev_in_moon = 1;
+            }
+            set_state(off_state, 0);
+            return EVENT_HANDLED;
+        }
+    }
+  ```
+  *anduril2/ui/anduril/ramp-mode.c*
+
+- Change the 2 click event on ramp \
+  ```
+  else if (event == EV_2clicks) {
+    if (actual_level < turbo_level) {
+      set_level_and_therm_target(turbo_level);
+      prev_in_ramp = 1;
+    }
+    else {
+      set_level_and_therm_target(memorized_level);
+    }
+    #ifdef USE_SUNSET_TIMER
+    reset_sunset_timer();
+    #endif
+    return EVENT_HANDLED;
+  }
+  *anduril2/ui/anduril/ramp-mode.c*
+
+- Change the enter off state event to disable the animation when comming from moon\ 
+  ```
+  if (event == EV_enter_state) {
+    // turn off
+    if (prev_in_moon == 1) {
+      set_level(0);
+      prev_in_moon = 0;
+    }
+    else {
+    off_state_set_level(0);
+    }
+  ```
+  *anduril2/ui/anduril/off-mode.c*
+</details>
+
+<details>
   <summary>Replace momentary to turn on high red aux leds and activate by 3C</summary>
 
 - Change shortcut ro enter momentary state in off mode

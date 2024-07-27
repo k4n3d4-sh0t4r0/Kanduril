@@ -6613,6 +6613,8 @@ typedef enum {
 } globals_config_steps_e;
 void globals_config_save(uint8_t step, uint8_t value);
 uint8_t globals_config_state(Event event, uint16_t arg);
+uint8_t prev_in_ramp = 0;
+uint8_t prev_in_moon = 0;
 // config-mode.h: Config mode base functions for Anduril.
 // Copyright (C) 2017-2023 Selene ToyKeeper
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -6686,7 +6688,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "26-07-2024-2";
+             uint8_t version_number[] = "0273" "." "27-07-2024";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6878,7 +6880,13 @@ uint8_t off_state(Event event, uint16_t arg) {
     // turn emitter off when entering state
     if (event == (0b00000000|0b00001000)) {
         // turn off
+        if (prev_in_moon == 1) {
+            set_level(0);
+            prev_in_moon = 0;
+        }
+        else {
         off_state_set_level(0);
+        }
             // don't go to sleep while animating
             arg |= smooth_steps_in_progress;
         ticks_since_on = 0;
@@ -7134,13 +7142,23 @@ uint8_t steady_state(Event event, uint16_t arg) {
     }
     // 1 click: off
     else if (event == (0b10000000|0b01000000|1)) {
-        set_state(off_state, 0);
-        return 0;
+        if (actual_level == 150 && prev_in_ramp == 1) {
+            prev_in_ramp = 0;
+            set_level_and_therm_target(memorized_level);
+        }
+        else {
+            if (actual_level == nearest_level(0)) {
+                prev_in_moon = 1;
+            }
+            set_state(off_state, 0);
+            return 0;
+        }
     }
     // 2 clicks: go to/from highest level
     else if (event == (0b10000000|0b01000000|2)) {
         if (actual_level < turbo_level) {
             set_level_and_therm_target(turbo_level);
+            prev_in_ramp = 1;
         }
         else {
             set_level_and_therm_target(memorized_level);
