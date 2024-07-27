@@ -161,13 +161,6 @@ add `#define DEFAULT_RAMP_SPEED 2` \
 </details>
 
 <details>
-  <summary>Set the jump start at reamp floor level</summary>
-
-- set `#define DEFAULT_JUMP_START_LEVEL` to `RAMP_SMOOTH_FLOOR` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
-</details>
-
-<details>
   <summary>Blink with the red channel instead of main</summary>
 
 - set `#define DEFAULT_BLINK_CHANNEL` to `CM_AUXRED` \
