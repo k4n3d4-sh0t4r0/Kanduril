@@ -225,3 +225,4 @@ uint8_t globals_config_state(Event event, uint16_t arg);
 
 uint8_t prev_in_ramp = 0;
 uint8_t prev_in_moon = 0;
+uint8_t prev_in_off = 0;
