@@ -200,7 +200,6 @@ uint8_t off_state(Event event, uint16_t arg) {
 
     // 2 clicks: highest mode (ceiling)
     else if (event == EV_2clicks) {
-        prev_in_off = 1;
         set_state(steady_state, MAX_LEVEL);
         return EVENT_HANDLED;
     }

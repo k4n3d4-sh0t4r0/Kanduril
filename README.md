@@ -36,19 +36,6 @@ add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_
 - Disable version check on simple ui \
 add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_VERSION_CHECK` \
 *anduril2/ui/anduril/off-mode.c*
-
-- Disable turbo 2C hold on simple ui \
-add `&& cfg.simple_ui_active != 1` as a condition in the event of `event == EV_click2_hold` \
-*anduril2/ui/anduril/off-mode.c*
-
-- Change the enter state event of the steady state so that it does nearest level everytime exept when it's MAX_LEVEL but do it everytime when it's on simple ui \
-replace `arg = nearest_level(arg);` by 
-  ```
-  if (arg != MAX_LEVEL || cfg.simple_ui_active == 1) {
-    arg = nearest_level(arg);
-  }
-  ```
-  *anduril2/ui/anduril/ramp-mode.c*
 </details>
 
 <details>
@@ -174,13 +161,6 @@ add `#define DEFAULT_RAMP_SPEED 2` \
 </details>
 
 <details>
-  <summary>Set the jump start at reamp floor level</summary>
-
-- set `#define DEFAULT_JUMP_START_LEVEL` to `RAMP_SMOOTH_FLOOR` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
-</details>
-
-<details>
   <summary>Blink with the red channel instead of main</summary>
 
 - set `#define DEFAULT_BLINK_CHANNEL` to `CM_AUXRED` \
@@ -232,17 +212,6 @@ replace `event == EV_3clicks` with `event == EV_5clicks` \
 </details>
 
 <details>
-  <summary>Remove all shortcut from lockout except exit and go off and change the shortcut to 4C instead of 3C</summary>
-
-- Delete all shortcut except exit and go off
-*anduril2/ui/anduril/lockout-mode.c*
-
-- Change shortcut to exit and go off \
-replace `event == EV_3clicks` with `event == EV_4clicks` \
-*anduril2/ui/anduril/lockout-mode.c*
-</details>
-
-<details>
   <summary>2C goes to turbo advanced and ceiling simple (like anduril 1)</summary>
 
 - Set the default style for advanced \
@@ -255,72 +224,49 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
 </details>
 
 <details>
-  <summary>Change the turbo shortcut to go to memorized level on 1C instead of 2C if entered from ramp && got to memorize on 2C if entered from off && avoid the blink when turning off from moon</summary>
+  <summary>Change the turbo shortcut to go to memorized level on 1C instead of 2C if entered from ramp && avoid the blink when turning off from moon</summary>
 
 - Add some thing that will be usefull in the next steps \
   ```
   uint8_t prev_in_ramp = 0;
   uint8_t prev_in_moon = 0;
-  uint8_t prev_in_off = 0;
   ```
   *anduril2/ui/anduril/ramp-mode.h*
 
 - Change the 1 click event on ramp \
   ```
   else if (event == EV_1click) {
-    if (actual_level == MAX_LEVEL && prev_in_ramp == 1) {
-      prev_in_ramp = 0;
-      set_level_and_therm_target(memorized_level);
+        if (actual_level == MAX_LEVEL && prev_in_ramp == 1) {
+            prev_in_ramp = 0;
+            set_level_and_therm_target(memorized_level);
+        }
+        else {
+            if (actual_level == nearest_level(0)) {
+                prev_in_moon = 1;
+            }
+            set_state(off_state, 0);
+            return EVENT_HANDLED;
+        }
     }
-    else if (actual_level == MAX_LEVEL && prev_in_moon == 1) {
-      prev_in_moon =0;
-      set_level_and_therm_target(nearest_level(0));
-    }
-    else {
-      if (actual_level == nearest_level(0)) {
-        prev_in_moon = 1;
-      }
-      prev_in_off = 0;
-      set_state(off_state, 0);
-      return EVENT_HANDLED;
-    }
-  }
   ```
   *anduril2/ui/anduril/ramp-mode.c*
 
 - Change the 2 click event on ramp \
   ```
-  else if (event == EV_2clicks && cfg.simple_ui_active != 1) {
+  else if (event == EV_2clicks) {
     if (actual_level < turbo_level) {
-      if (actual_level == nearest_level(0)) {
-        prev_in_moon = 1;
-      }
-      else {
-        prev_in_ramp = 1;
-      }
       set_level_and_therm_target(turbo_level);
+      prev_in_ramp = 1;
     }
     else {
-      if (prev_in_off == 1) {
-        set_level_and_therm_target(memorized_level);
-        prev_in_off = 0;
-      }
-      else {
-        set_state(off_state, 0);
-        prev_in_ramp = 0;
-        prev_in_moon = 0;
-      }
+      set_level_and_therm_target(memorized_level);
     }
     #ifdef USE_SUNSET_TIMER
     reset_sunset_timer();
     #endif
     return EVENT_HANDLED;
   }
-  ```
   *anduril2/ui/anduril/ramp-mode.c*
-
-- add `prev_in_off = 1;` to `event == EV_2clicks` \
-*anduril2/ui/anduril/off-mode.c*
 
 - Change the enter off state event to disable the animation when comming from moon\ 
   ```
@@ -373,6 +319,10 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
   #endif
   ```
   *anduril2/ui/anduril/ramp-mode.c*
+
+- Change the enter state event of the steady state so that it doesn't make the nearest level when in turbo mode \
+replace `arg = nearest_level(arg);` by `if (arg != MAX_LEVEL) { arg = nearest_level(arg); }` \
+*anduril2/ui/anduril/ramp-mode.c*
 
 - Change momentary state 
   ```
