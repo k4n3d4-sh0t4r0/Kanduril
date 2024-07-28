@@ -6688,7 +6688,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "27-07-2024";
+             uint8_t version_number[] = "0273" "." "27-07-2024-1";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6865,7 +6865,7 @@ Config cfg = {
     ///// misc other mode settings
         .autolock_time = 0,
     ///// hardware config / globals menu
-        .jump_start_level = 1,
+        .jump_start_level = 8,
 };
 /********* Include all the app logic source files *********/
 // (is a bit weird to do things this way,

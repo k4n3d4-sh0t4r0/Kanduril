@@ -59,7 +59,7 @@
 // the power regulator seems to "jump start" the LEDs all on its own,
 // so the firmware doesn't have to
 // (and unfortunately the power regulator jumps it a bit too hard)
-#define DEFAULT_JUMP_START_LEVEL 1
+#define DEFAULT_JUMP_START_LEVEL RAMP_SMOOTH_FLOOR
 #define BLINK_BRIGHTNESS 50
 #define BLINK_ONCE_TIME 12
 
