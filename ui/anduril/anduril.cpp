@@ -6615,6 +6615,7 @@ void globals_config_save(uint8_t step, uint8_t value);
 uint8_t globals_config_state(Event event, uint16_t arg);
 uint8_t prev_in_ramp = 0;
 uint8_t prev_in_moon = 0;
+uint8_t prev_in_off = 0;
 // config-mode.h: Config mode base functions for Anduril.
 // Copyright (C) 2017-2023 Selene ToyKeeper
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -6688,7 +6689,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "27-07-2024-1";
+             uint8_t version_number[] = "0273" "." "28-07-2024-8";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6976,6 +6977,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     }
     // 2 clicks: highest mode (ceiling)
     else if (event == (0b10000000|0b01000000|2)) {
+        prev_in_off = 1;
         set_state(steady_state, 150);
         return 0;
     }
@@ -7135,7 +7137,9 @@ uint8_t steady_state(Event event, uint16_t arg) {
         if ((arg > mode_min) && (arg < mode_max))
             memorized_level = arg;
         // use the requested level even if not memorized
-        if (arg != 150) { arg = nearest_level(arg); }
+        if (arg != 150 || cfg.simple_ui_active == 1) {
+            arg = nearest_level(arg);
+        }
         set_level_and_therm_target(arg);
         ramp_direction = 1;
         return 0;
@@ -7146,22 +7150,40 @@ uint8_t steady_state(Event event, uint16_t arg) {
             prev_in_ramp = 0;
             set_level_and_therm_target(memorized_level);
         }
+        else if (actual_level == 150 && prev_in_moon == 1) {
+            prev_in_moon =0;
+            set_level_and_therm_target(nearest_level(0));
+        }
         else {
             if (actual_level == nearest_level(0)) {
                 prev_in_moon = 1;
             }
+            prev_in_off = 0;
             set_state(off_state, 0);
             return 0;
         }
     }
     // 2 clicks: go to/from highest level
-    else if (event == (0b10000000|0b01000000|2)) {
+    else if (event == (0b10000000|0b01000000|2) && cfg.simple_ui_active != 1) {
         if (actual_level < turbo_level) {
+            if (actual_level == nearest_level(0)) {
+                prev_in_moon = 1;
+            }
+            else {
+                prev_in_ramp = 1;
+            }
             set_level_and_therm_target(turbo_level);
-            prev_in_ramp = 1;
         }
         else {
-            set_level_and_therm_target(memorized_level);
+            if (prev_in_off == 1) {
+                set_level_and_therm_target(memorized_level);
+                prev_in_off = 0;
+            }
+            else {
+                set_state(off_state, 0);
+                prev_in_ramp = 0;
+                prev_in_moon = 0;
+            }
         }
         reset_sunset_timer();
         return 0;
@@ -8103,38 +8125,11 @@ uint8_t lockout_state(Event event, uint16_t arg) {
         rgb_led_update(cfg.rgb_led_lockout_mode, arg);
         return 0;
     }
-    // 3 clicks: exit and turn off
-    else if (event == (0b10000000|0b01000000|3)) {
+    // 4 clicks: exit and turn off
+    else if (event == (0b10000000|0b01000000|4)) {
         blink_once();
         set_state(off_state, 0);
         return 0;
-    }
-    // 4 clicks: exit and turn on
-    else if (event == (0b10000000|0b01000000|4)) {
-        set_state(steady_state, memorized_level);
-        return 0;
-    }
-    // 4 clicks, but hold last: exit and start at floor
-    else if (event == (0b10000000|0b00100000|0b00010000|4)) {
-        //blink_once();
-        blip();
-        // reset button sequence to avoid activating anything in ramp mode
-        current_event = 0;
-        // ... and back to ramp mode
-        set_state(steady_state, 1);
-        return 0;
-    }
-    // 5 clicks: exit and turn on at ceiling level
-    else if (event == (0b10000000|0b01000000|5)) {
-        set_state(steady_state, 150);
-        return 0;
-    }
-    // 3H: next channel mode
-    else if (event == (0b10000000|0b00100000|0b00010000|3)) {
-        if (0 == (arg % 62)) {
-            // pretend the user clicked 3 times to change channels
-            return channel_mode_state((0b10000000|0b01000000|3), 0);
-        }
     }
     ////////// Every action below here is blocked in the (non-Extended) Simple UI //////////
     // 7 clicks: change RGB aux LED pattern

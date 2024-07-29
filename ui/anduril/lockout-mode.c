@@ -81,52 +81,12 @@ uint8_t lockout_state(Event event, uint16_t arg) {
     }
     #endif
 
-    // 3 clicks: exit and turn off
-    else if (event == EV_3clicks) {
+    // 4 clicks: exit and turn off
+    else if (event == EV_4clicks) {
         blink_once();
         set_state(off_state, 0);
         return EVENT_HANDLED;
     }
-
-    // 4 clicks: exit and turn on
-    else if (event == EV_4clicks) {
-        #if defined(USE_MANUAL_MEMORY) && !defined(USE_MANUAL_MEMORY_TIMER)
-        // this clause probably isn't used by any configs any more
-        // but is included just in case someone configures it this way
-        if (cfg.manual_memory)
-            set_state(steady_state, cfg.manual_memory);
-        else
-        #endif
-        set_state(steady_state, memorized_level);
-        return EVENT_HANDLED;
-    }
-
-    // 4 clicks, but hold last: exit and start at floor
-    else if (event == EV_click4_hold) {
-        //blink_once();
-        blip();
-        // reset button sequence to avoid activating anything in ramp mode
-        current_event = 0;
-        // ... and back to ramp mode
-        set_state(steady_state, 1);
-        return EVENT_HANDLED;
-    }
-
-    // 5 clicks: exit and turn on at ceiling level
-    else if (event == EV_5clicks) {
-        set_state(steady_state, MAX_LEVEL);
-        return EVENT_HANDLED;
-    }
-
-    #if NUM_CHANNEL_MODES > 1
-    // 3H: next channel mode
-    else if (event == EV_click3_hold) {
-        if (0 == (arg % TICKS_PER_SECOND)) {
-            // pretend the user clicked 3 times to change channels
-            return channel_mode_state(EV_3clicks, 0);
-        }
-    }
-    #endif
 
     ////////// Every action below here is blocked in the (non-Extended) Simple UI //////////
 

@@ -104,7 +104,9 @@ uint8_t steady_state(Event event, uint16_t arg) {
         if ((arg > mode_min) && (arg < mode_max))
             memorized_level = arg;
         // use the requested level even if not memorized
-        if (arg != MAX_LEVEL) { arg = nearest_level(arg); }
+        if (arg != MAX_LEVEL || cfg.simple_ui_active == 1) {
+            arg = nearest_level(arg);
+        }
         set_level_and_therm_target(arg);
         ramp_direction = 1;
         return EVENT_HANDLED;
@@ -128,22 +130,40 @@ uint8_t steady_state(Event event, uint16_t arg) {
             prev_in_ramp = 0;
             set_level_and_therm_target(memorized_level);
         }
+        else if (actual_level == MAX_LEVEL && prev_in_moon == 1) {
+            prev_in_moon =0;
+            set_level_and_therm_target(nearest_level(0));
+        }
         else {
             if (actual_level == nearest_level(0)) {
                 prev_in_moon = 1;
             }
+            prev_in_off = 0;
             set_state(off_state, 0);
             return EVENT_HANDLED;
         }
     }
     // 2 clicks: go to/from highest level
-    else if (event == EV_2clicks) {
+    else if (event == EV_2clicks && cfg.simple_ui_active != 1) {
         if (actual_level < turbo_level) {
+            if (actual_level == nearest_level(0)) {
+                prev_in_moon = 1;
+            }
+            else {
+                prev_in_ramp = 1;
+            }
             set_level_and_therm_target(turbo_level);
-            prev_in_ramp = 1;
         }
         else {
-            set_level_and_therm_target(memorized_level);
+            if (prev_in_off == 1) {
+                set_level_and_therm_target(memorized_level);
+                prev_in_off = 0;
+            }
+            else {
+                set_state(off_state, 0);
+                prev_in_ramp = 0;
+                prev_in_moon = 0;
+            }
         }
         #ifdef USE_SUNSET_TIMER
         reset_sunset_timer();
