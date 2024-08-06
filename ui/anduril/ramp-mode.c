@@ -131,7 +131,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
             set_level_and_therm_target(memorized_level);
         }
         else if (actual_level == MAX_LEVEL && prev_in_moon == 1) {
-            prev_in_moon =0;
+            prev_in_moon = 0;
             set_level_and_therm_target(nearest_level(0));
         }
         else {
@@ -473,9 +473,29 @@ uint8_t steady_state(Event event, uint16_t arg) {
         if (! arg) {  // first frame only, to allow thermal regulation to work
             #ifdef USE_2C_STYLE_CONFIG
             uint8_t tl = style_2c ? MAX_LEVEL : turbo_level;
-            set_level_and_therm_target(tl);
+            if (actual_level == nearest_level(1)) {
+                turbo_prev_in_moon = 1;
+                set_level_and_therm_target(tl);
+            }
+            else if (actual_level == turbo_level) {
+                turbo_prev_in_turbo = 1;
+                set_level_and_therm_target(tl);
+            }
+            else {
+                set_level_and_therm_target(tl);
+            }
             #else
-            set_level_and_therm_target(turbo_level);
+            if (actual_level == nearest_level(1)) {
+                turbo_prev_in_moon = 1;
+                set_level_and_therm_target(turbo_level);
+            }
+            else if (actual_level == turbo_level) {
+                turbo_prev_in_turbo = 1;
+                set_level_and_therm_target(turbo_level);
+            }
+            else {
+                set_level_and_therm_target(turbo_level);
+            }
             #endif
         }
         return EVENT_HANDLED;
@@ -491,8 +511,20 @@ uint8_t steady_state(Event event, uint16_t arg) {
                 && (channel_has_args(channel_mode)))
                 return EVENT_NOT_HANDLED;
         #endif
-        set_level_and_therm_target(memorized_level);
-        return EVENT_HANDLED;
+        if (turbo_prev_in_moon == 1) {
+            turbo_prev_in_moon = 0;
+            set_level_and_therm_target(nearest_level(0));
+            return EVENT_HANDLED;
+        }
+        else if (turbo_prev_in_turbo == 1) {
+            turbo_prev_in_turbo = 0;
+            set_level_and_therm_target(turbo_level);
+            return EVENT_HANDLED;
+        }
+        else {
+            set_level_and_therm_target(memorized_level);
+            return EVENT_HANDLED;
+        }
     }
 
     #ifdef USE_MOMENTARY_MODE

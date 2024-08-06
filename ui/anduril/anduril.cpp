@@ -6613,6 +6613,9 @@ typedef enum {
 } globals_config_steps_e;
 void globals_config_save(uint8_t step, uint8_t value);
 uint8_t globals_config_state(Event event, uint16_t arg);
+uint8_t turbo_prev_in_ramp = 0;
+uint8_t turbo_prev_in_moon = 0;
+uint8_t turbo_prev_in_turbo = 0;
 uint8_t prev_in_ramp = 0;
 uint8_t prev_in_moon = 0;
 uint8_t prev_in_off = 0;
@@ -6689,7 +6692,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "28-07-2024-8";
+             uint8_t version_number[] = "0273" "." "06-08-2024";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -7151,7 +7154,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
             set_level_and_therm_target(memorized_level);
         }
         else if (actual_level == 150 && prev_in_moon == 1) {
-            prev_in_moon =0;
+            prev_in_moon = 0;
             set_level_and_therm_target(nearest_level(0));
         }
         else {
@@ -7369,14 +7372,36 @@ uint8_t steady_state(Event event, uint16_t arg) {
         ) {
         if (! arg) { // first frame only, to allow thermal regulation to work
             uint8_t tl = style_2c ? 150 : turbo_level;
-            set_level_and_therm_target(tl);
+            if (actual_level == nearest_level(1)) {
+                turbo_prev_in_moon = 1;
+                set_level_and_therm_target(tl);
+            }
+            else if (actual_level == turbo_level) {
+                turbo_prev_in_turbo = 1;
+                set_level_and_therm_target(tl);
+            }
+            else {
+                set_level_and_therm_target(tl);
+            }
         }
         return 0;
     }
     else if ((event == (0b10000000|0b00100000|0b00000000|0b01000000|3))
         ) {
-        set_level_and_therm_target(memorized_level);
-        return 0;
+        if (turbo_prev_in_moon == 1) {
+            turbo_prev_in_moon = 0;
+            set_level_and_therm_target(nearest_level(0));
+            return 0;
+        }
+        else if (turbo_prev_in_turbo == 1) {
+            turbo_prev_in_turbo = 0;
+            set_level_and_therm_target(turbo_level);
+            return 0;
+        }
+        else {
+            set_level_and_therm_target(memorized_level);
+            return 0;
+        }
     }
     // 3 clicks: momentary mode
     else if (event == (0b10000000|0b01000000|3)) {

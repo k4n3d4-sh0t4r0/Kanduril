@@ -1,6 +1,6 @@
 # Kanduril
 
-My configuration for anduril 2 firmware on my D4K single channel
+My configuration and modifications for anduril 2 firmware on my D4K single channel
 
 It may not work properly on other flashlights as it's based and work on the model n°0273. I'm describing everything I changed and where I changed it in each drop-down list if you want to do the same as my configuration.
 
@@ -273,7 +273,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
       set_level_and_therm_target(memorized_level);
     }
     else if (actual_level == MAX_LEVEL && prev_in_moon == 1) {
-      prev_in_moon =0;
+      prev_in_moon = 0;
       set_level_and_therm_target(nearest_level(0));
     }
     else {
@@ -418,6 +418,93 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
   ```
   *anduril2/ui/anduril/momentary-mode.c*
 
+</details>
+
+<details>
+  <summary>Change momentary turbo when on to make it remember what mode it entered from</summary>
+
+- add the required variables
+  add `uint8_t turbo_prev_in_moon = 0;`
+  add `uint8_t turbo_prev_in_turbo = 0;`
+  *anduril2/ui/anduril/ramp-mode.h*
+
+- change the `else if ((event == EV_click3_hold)` event
+  ```
+  else if ((event == EV_click3_hold)
+      #ifdef USE_CHANNEL_MODE_ARGS
+      || (event == EV_click4_hold)
+      #endif
+    ) {
+    #ifdef USE_CHANNEL_MODE_ARGS
+      // ramp tint if tint exists in this mode
+      if ((event == EV_click3_hold)
+        && (channel_has_args(channel_mode)))
+        return EVENT_NOT_HANDLED;
+    #endif
+    if (! arg) {  // first frame only, to allow thermal regulation to work
+      #ifdef USE_2C_STYLE_CONFIG
+      uint8_t tl = style_2c ? MAX_LEVEL : turbo_level;
+      if (actual_level == nearest_level(1)) {
+        turbo_prev_in_moon = 1;
+        set_level_and_therm_target(tl);
+      }
+      else if (actual_level == turbo_level) {
+        turbo_prev_in_turbo = 1;
+        set_level_and_therm_target(tl);
+      }
+      else {
+        set_level_and_therm_target(tl);
+      }
+      #else
+      if (actual_level == nearest_level(1)) {
+        turbo_prev_in_moon = 1;
+        set_level_and_therm_target(turbo_level);
+      }
+      else if (actual_level == turbo_level) {
+        turbo_prev_in_turbo = 1;
+        set_level_and_therm_target(turbo_level);
+      }
+      else {
+        set_level_and_therm_target(turbo_level);
+      }
+      #endif
+    }
+    return EVENT_HANDLED;
+  }
+  ```
+  *anduril2/ui/anduril/ramp-mode.c*
+
+- if prev_in_moon is true go back at moon level
+  change the `else if ((event == EV_click3_hold_release)` event
+  ```
+  else if ((event == EV_click3_hold_release)
+      #ifdef USE_CHANNEL_MODE_ARGS
+      || (event == EV_click4_hold_release)
+    #endif
+    ) {
+   #ifdef USE_CHANNEL_MODE_ARGS
+      // ramp tint if tint exists in this mode
+      if ((event == EV_click3_hold_release)
+        && (channel_has_args(channel_mode)))
+        return EVENT_NOT_HANDLED;
+      #endif
+      if (turbo_prev_in_moon == 1) {
+        turbo_prev_in_moon = 0;
+        set_level_and_therm_target(nearest_level(0));
+        return EVENT_HANDLED;
+      }
+      else if (turbo_prev_in_turbo == 1) {
+        turbo_prev_in_turbo = 0;
+        set_level_and_therm_target(turbo_level);
+        return EVENT_HANDLED;
+      }
+      else {
+        set_level_and_therm_target(memorized_level);
+        return EVENT_HANDLED;
+      }
+  }
+  ```
+  *anduril2/ui/anduril/ramp-mode.c*
 </details>
 
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit

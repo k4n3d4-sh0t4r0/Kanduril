@@ -223,6 +223,8 @@ void globals_config_save(uint8_t step, uint8_t value);
 uint8_t globals_config_state(Event event, uint16_t arg);
 #endif
 
+uint8_t turbo_prev_in_moon = 0;
+uint8_t turbo_prev_in_turbo = 0;
 uint8_t prev_in_ramp = 0;
 uint8_t prev_in_moon = 0;
 uint8_t prev_in_off = 0;
