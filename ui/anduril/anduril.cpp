@@ -6613,7 +6613,6 @@ typedef enum {
 } globals_config_steps_e;
 void globals_config_save(uint8_t step, uint8_t value);
 uint8_t globals_config_state(Event event, uint16_t arg);
-uint8_t turbo_prev_in_ramp = 0;
 uint8_t turbo_prev_in_moon = 0;
 uint8_t turbo_prev_in_turbo = 0;
 uint8_t prev_in_ramp = 0;
@@ -6692,7 +6691,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "06-08-2024";
+             uint8_t version_number[] = "0273" "." "07-08-2024";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6821,7 +6820,7 @@ Config cfg = {
         .ramp_ceils = {
             130,
             130,
-                40,
+                30,
             },
         .ramp_stepss = {
             2,
@@ -6961,7 +6960,7 @@ uint8_t off_state(Event event, uint16_t arg) {
         return 0;
     }
     // click, hold: momentary at ceiling or turbo
-    else if (event == (0b10000000|0b00100000|0b00010000|2)) {
+    else if (event == (0b10000000|0b00100000|0b00010000|3)) {
         ticks_since_on = 0; // momentary turbo is definitely "on"
         uint8_t turbo_level; // how bright is "turbo"?
             uint8_t style_2c = cfg.ramp_2c_style;
@@ -6974,7 +6973,7 @@ uint8_t off_state(Event event, uint16_t arg) {
         off_state_set_level(turbo_level);
         return 0;
     }
-    else if (event == (0b10000000|0b00100000|0b00000000|0b01000000|2)) {
+    else if (event == (0b10000000|0b00100000|0b00000000|0b01000000|3)) {
         off_state_set_level(0);
         return 0;
     }
@@ -7026,7 +7025,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     }
     ////////// Every action below here is blocked in the (non-Extended) Simple UI //////////
     // click, click, long-click: strobe mode
-    else if (event == (0b10000000|0b00100000|0b00010000|3) && cfg.simple_ui_active != 1) {
+    else if (event == (0b10000000|0b00100000|0b00010000|4) && cfg.simple_ui_active != 1) {
         set_state(strobe_state, 0);
         return 0;
     }

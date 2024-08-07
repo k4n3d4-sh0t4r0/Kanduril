@@ -166,7 +166,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     }
 
     // click, hold: momentary at ceiling or turbo
-    else if (event == EV_click2_hold) {
+    else if (event == EV_click3_hold) {
         ticks_since_on = 0;  // momentary turbo is definitely "on"
         uint8_t turbo_level;  // how bright is "turbo"?
 
@@ -193,7 +193,7 @@ uint8_t off_state(Event event, uint16_t arg) {
         off_state_set_level(turbo_level);
         return EVENT_HANDLED;
     }
-    else if (event == EV_click2_hold_release) {
+    else if (event == EV_click3_hold_release) {
         off_state_set_level(0);
         return EVENT_HANDLED;
     }
@@ -273,12 +273,12 @@ uint8_t off_state(Event event, uint16_t arg) {
 
     // click, click, long-click: strobe mode
     #ifdef USE_STROBE_STATE
-    else if (event == EV_click3_hold && cfg.simple_ui_active != 1) {
+    else if (event == EV_click4_hold && cfg.simple_ui_active != 1) {
         set_state(strobe_state, 0);
         return EVENT_HANDLED;
     }
     #elif defined(USE_BORING_STROBE_STATE)
-    else if (event == EV_click3_hold && cfg.simple_ui_active != 1) {
+    else if (event == EV_click4_hold && cfg.simple_ui_active != 1) {
         set_state(boring_strobe_state, 0);
         return EVENT_HANDLED;
     }

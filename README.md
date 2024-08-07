@@ -10,36 +10,36 @@ It may not work properly on other flashlights as it's based and work on the mode
   <summary>Recreate a muggle mode like Anduril 1 (replace simple ui)</summary> 
 
 - Limit the ceiling of simple ui \
-set `#define SIMPLE_UI_CEIL` to `40` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+set `#define SIMPLE_UI_CEIL` to `30` \
+*Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
 
 - Limit the steps of simple ui \
 set `#define SIMPLE_UI_STEPS` to `3` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+*Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
 
 - Disable battery check on simple ui \
 add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_BATTCHECK` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 
 - Disable strobe mode on simple ui \
 add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_STROBE_STATE` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 
 - Disable boring strobe mode on simple ui \
 add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_BORING_STROBE_STATE` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 
 - Disable lockout mode on simple ui \
 add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_LOCKOUT_MODE` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 
 - Disable version check on simple ui \
 add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_VERSION_CHECK` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 
 - Disable turbo 2C hold on simple ui \
 add `&& cfg.simple_ui_active != 1` as a condition in the event of `event == EV_click2_hold` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 
 - Change the enter state event of the steady state so that it does nearest level everytime exept when it's MAX_LEVEL but do it everytime when it's on simple ui \
 replace `arg = nearest_level(arg);` by 
@@ -48,7 +48,7 @@ replace `arg = nearest_level(arg);` by
     arg = nearest_level(arg);
   }
   ```
-  *anduril2/ui/anduril/ramp-mode.c*
+  *Kanduril/ui/anduril/ramp-mode.c*
 </details>
 
 <details>
@@ -67,7 +67,7 @@ replace `arg = nearest_level(arg);` by
       return EVENT_HANDLED;
   }
   ```
-  *anduril2/ui/anduril/battcheck-mode.c*
+  *Kanduril/ui/anduril/battcheck-mode.c*
 
 - Change order on temperature check state 
   ```
@@ -82,7 +82,7 @@ replace `arg = nearest_level(arg);` by
       return EVENT_HANDLED;
   }
   ```
-  *anduril2/ui/anduril/tempcheck-mode.c*
+  *Kanduril/ui/anduril/tempcheck-mode.c*
 
 - Change order on sos mode state 
   ```
@@ -97,7 +97,7 @@ replace `arg = nearest_level(arg);` by
       return EVENT_HANDLED;
   }
   ```
-  *anduril2/ui/anduril/sos-mode.c*
+  *Kanduril/ui/anduril/sos-mode.c*
 
 - Change order on beacon mode state 
   ```
@@ -112,7 +112,7 @@ replace `arg = nearest_level(arg);` by
       return EVENT_HANDLED;
   }
   ```
-  *anduril2/ui/anduril/beacon-mode.c*
+  *Kanduril/ui/anduril/beacon-mode.c*
 </details>
 
 <details>
@@ -120,15 +120,15 @@ replace `arg = nearest_level(arg);` by
 
 - Disable the Hank's hardware preset for the aux \
 comment `#define RGB_LED_OFF_DEFAULT 0x18` \
-*anduril2/hw/hank/anduril.h*
+*Kanduril/hw/hank/anduril.h*
 
 - Set the aux on low cyan when off \
 set `#define RGB_LED_OFF_DEFAULT` to `0x13` \
-*anduril2/ui/anduril/aux-leds.h*
+*Kanduril/ui/anduril/aux-leds.h*
 
 - Set the aux on low voltage when lock \
 set `#define RGB_LED_LOCKOUT_DEFAULT` to `0x19` \
-*anduril2/ui/anduril/aux-leds.h*
+*Kanduril/ui/anduril/aux-leds.h*
 </details>
 
 <details>
@@ -136,14 +136,14 @@ set `#define RGB_LED_LOCKOUT_DEFAULT` to `0x19` \
 
 - Deactivate option to ramp after moon \
 add `#define DEFAULT_DONT_RAMP_AFTER_MOON 1` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
   <summary>Set the post off voltage to 1sec by default</summary>
 
 - add `#define DEFAULT_POST_OFF_VOLTAGE_SECONDS 1` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
@@ -151,11 +151,11 @@ add `#define DEFAULT_DONT_RAMP_AFTER_MOON 1` \
 
 - Set 8 for smooth floor \
 set `#define RAMP_SMOOTH_FLOOR` to `8` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+*Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
 
 - Set 8 for discrete floor \
 set `#define RAMP_DISCRETE_FLOOR` to `8` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+*Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
 </details>
 
 <details>
@@ -163,42 +163,42 @@ set `#define RAMP_DISCRETE_FLOOR` to `8` \
 
 - Set to 2 for 1/2 \
 add `#define DEFAULT_RAMP_SPEED 2` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
   <summary>Disable moon mode when lock</summary>
 
 - comment `#define USE_MOON_DURING_LOCKOUT_MODE` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
   <summary>Set the jump start at reamp floor level</summary>
 
 - set `#define DEFAULT_JUMP_START_LEVEL` to `RAMP_SMOOTH_FLOOR` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+*Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
 </details>
 
 <details>
   <summary>Blink with the red channel instead of main</summary>
 
 - set `#define DEFAULT_BLINK_CHANNEL` to `CM_AUXRED` \
-*anduril2/hw/hank/noctigon-dm11/boost/anduril.h*
+*Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
 </details>
 
 <details>
   <summary>Disable the blink in the middle</summary>
 
 - comment `#define BLINK_AT_RAMP_MIDDLE` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
   <summary>Enable police strobe</summary>
 
 - uncomment `#define USE_POLICE_STROBE_MODE` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
@@ -206,11 +206,11 @@ add `#define DEFAULT_RAMP_SPEED 2` \
 
 - For sloppy temperature sensor \
 set `#define DEFAULT_THERM_CEIL` to `50` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 
 - For accurate temperature sensor \
 set `#define DEFAULT_THERM_CEIL` to `55` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
@@ -218,7 +218,7 @@ set `#define DEFAULT_THERM_CEIL` to `55` \
 
 - Kinda useless mode in my use \
 comment `#define USE_TACTICAL_MODE` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
@@ -228,18 +228,18 @@ comment `#define USE_TACTICAL_MODE` \
 
 - Change shortcut to USE_BATTCHECK \
 replace `event == EV_3clicks` with `event == EV_5clicks` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 </details>
 
 <details>
   <summary>Remove all shortcut from lockout except exit and go off and change the shortcut to 4C instead of 3C</summary>
 
 - Delete all shortcut except exit and go off
-*anduril2/ui/anduril/lockout-mode.c*
+*Kanduril/ui/anduril/lockout-mode.c*
 
 - Change shortcut to exit and go off \
 replace `event == EV_3clicks` with `event == EV_4clicks` \
-*anduril2/ui/anduril/lockout-mode.c*
+*Kanduril/ui/anduril/lockout-mode.c*
 </details>
 
 <details>
@@ -247,11 +247,11 @@ replace `event == EV_3clicks` with `event == EV_4clicks` \
 
 - Set the default style for advanced \
 uncomment `#define DEFAULT_2C_STYLE` and set it to `1` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 
 - Set the default style for simple \
 uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
-*anduril2/ui/anduril/config-default.h*
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
@@ -263,7 +263,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
   uint8_t prev_in_moon = 0;
   uint8_t prev_in_off = 0;
   ```
-  *anduril2/ui/anduril/ramp-mode.h*
+  *Kanduril/ui/anduril/ramp-mode.h*
 
 - Change the 1 click event on ramp \
   ```
@@ -286,7 +286,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
     }
   }
   ```
-  *anduril2/ui/anduril/ramp-mode.c*
+  *Kanduril/ui/anduril/ramp-mode.c*
 
 - Change the 2 click event on ramp \
   ```
@@ -317,10 +317,10 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
     return EVENT_HANDLED;
   }
   ```
-  *anduril2/ui/anduril/ramp-mode.c*
+  *Kanduril/ui/anduril/ramp-mode.c*
 
 - add `prev_in_off = 1;` to `event == EV_2clicks` \
-*anduril2/ui/anduril/off-mode.c*
+*Kanduril/ui/anduril/off-mode.c*
 
 - Change the enter off state event to disable the animation when comming from moon\ 
   ```
@@ -334,7 +334,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
     off_state_set_level(0);
     }
   ```
-  *anduril2/ui/anduril/off-mode.c*
+  *Kanduril/ui/anduril/off-mode.c*
 </details>
 
 <details>
@@ -350,7 +350,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
   }
   #endif
   ```
-  *anduril2/ui/anduril/off-mode.c*
+  *Kanduril/ui/anduril/off-mode.c*
 
 - Change shortcut to enter momentary state in ramp mode
   ```
@@ -372,7 +372,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
   }
   #endif
   ```
-  *anduril2/ui/anduril/ramp-mode.c*
+  *Kanduril/ui/anduril/ramp-mode.c*
 
 - Change momentary state 
   ```
@@ -416,7 +416,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
     return EVENT_HANDLED;
   }
   ```
-  *anduril2/ui/anduril/momentary-mode.c*
+  *Kanduril/ui/anduril/momentary-mode.c*
 
 </details>
 
@@ -426,7 +426,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
 - add the required variables
   add `uint8_t turbo_prev_in_moon = 0;`
   add `uint8_t turbo_prev_in_turbo = 0;`
-  *anduril2/ui/anduril/ramp-mode.h*
+  *Kanduril/ui/anduril/ramp-mode.h*
 
 - change the `else if ((event == EV_click3_hold)` event
   ```
@@ -472,7 +472,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
     return EVENT_HANDLED;
   }
   ```
-  *anduril2/ui/anduril/ramp-mode.c*
+  *Kanduril/ui/anduril/ramp-mode.c*
 
 - if prev_in_moon is true go back at moon level
   change the `else if ((event == EV_click3_hold_release)` event
@@ -504,7 +504,21 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
       }
   }
   ```
-  *anduril2/ui/anduril/ramp-mode.c*
+  *Kanduril/ui/anduril/ramp-mode.c*
+</details>
+
+<details>
+  <summary>Change shortcut to strobe state when off to 4C hold and momentary turbo to 3C hold to be the same as when on to avoid confusion</summary> 
+
+- change strobe state and boring strobe state to 4C hold
+change `event == EV_click3_hold` to `event == EV_click4_hold` for `USE_STROBE_STATE`
+change `event == EV_click3_hold` to `event == EV_click4_hold` for `USE_BORING_STROBE_STATE`
+*Kanduril/ui/anduril/off-mode.c*
+
+- change momentary ceiling or turbo to 3C hold
+change `event == EV_click2_hold` to `event == EV_click3_hold` for `momentary ceiling or turbo`
+change `event == EV_click2_hold_release` to `event == EV_click3_hold_release` for `momentary ceiling or turbo`
+*Kanduril/ui/anduril/off-mode.c*
 </details>
 
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit

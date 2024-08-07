@@ -48,7 +48,7 @@
 
 // safe limit ~75% power
 #define SIMPLE_UI_FLOOR RAMP_DISCRETE_FLOOR
-#define SIMPLE_UI_CEIL 40
+#define SIMPLE_UI_CEIL 30
 #define SIMPLE_UI_STEPS 3
 
 // stop panicking at ~70% power or ~600 lm
