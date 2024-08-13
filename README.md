@@ -6,7 +6,7 @@ It may not work properly on other flashlights as it's based and work on the mode
 
 ## Diagrams
 
-![diagrams](diagrams/kanduril_diagram.pdf)
+![diagrams](diagrams/kanduril_diagram.png)
 
 ## Changes
 
