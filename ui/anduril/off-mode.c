@@ -138,21 +138,6 @@ uint8_t off_state(Event event, uint16_t arg) {
         return EVENT_HANDLED;
     }
 
-    #if (B_TIMING_ON != B_TIMEOUT_T)
-    // 1 click (before timeout): go to memorized level, but allow abort for double click
-    else if (event == EV_click1_release) {
-        #if defined(USE_MANUAL_MEMORY) && !defined(USE_MANUAL_MEMORY_TIMER)
-            // this clause probably isn't used by any configs any more
-            // but is included just in case someone configures it this way
-            if (cfg.manual_memory) {
-                manual_memory_restore();
-            }
-        #endif
-        off_state_set_level(nearest_level(memorized_level));
-        return EVENT_HANDLED;
-    }
-    #endif  // if (B_TIMING_ON != B_TIMEOUT_T)
-
     // 1 click: regular mode
     else if (event == EV_1click) {
         #if (B_TIMING_ON != B_TIMEOUT_T)
@@ -344,6 +329,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     // 10 clicks: enable simple UI
     else if (event == EV_10clicks) {
         blink_once();
+        memorized_level = nearest_level(0);
         cfg.simple_ui_active = 1;
         save_config();
         return EVENT_HANDLED;

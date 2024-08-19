@@ -6691,7 +6691,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "07-08-2024";
+             uint8_t version_number[] = "0273" "." "19-08-2024";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6949,11 +6949,6 @@ uint8_t off_state(Event event, uint16_t arg) {
         set_state(steady_state, 1);
         return 0;
     }
-    // 1 click (before timeout): go to memorized level, but allow abort for double click
-    else if (event == (0b10000000|0b00000000|1)) {
-        off_state_set_level(nearest_level(memorized_level));
-        return 0;
-    }
     // 1 click: regular mode
     else if (event == (0b10000000|0b01000000|1)) {
         set_state(steady_state, memorized_level);
@@ -7063,6 +7058,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     // 10 clicks: enable simple UI
     else if (event == (0b10000000|0b01000000|10)) {
         blink_once();
+        memorized_level = nearest_level(0);
         cfg.simple_ui_active = 1;
         save_config();
         return 0;
@@ -7157,7 +7153,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
             set_level_and_therm_target(nearest_level(0));
         }
         else {
-            if (actual_level == nearest_level(0)) {
+            if (actual_level <= 25) {
                 prev_in_moon = 1;
             }
             prev_in_off = 0;

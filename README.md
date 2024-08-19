@@ -45,6 +45,10 @@ add `&& cfg.simple_ui_active != 1` as a condition in the else if of `#ifdef USE_
 add `&& cfg.simple_ui_active != 1` as a condition in the event of `event == EV_click2_hold` \
 *Kanduril/ui/anduril/off-mode.c*
 
+- Set the level to moon when entering simple ui \
+add `memorized_level = nearest_level(0);` to the `else if (event == EV_10clicks)` \
+*Kanduril/ui/anduril/off-mode.c*
+
 - Change the enter state event of the steady state so that it does nearest level everytime exept when it's MAX_LEVEL but do it everytime when it's on simple ui \
 replace `arg = nearest_level(arg);` by 
   ```
@@ -259,7 +263,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
 </details>
 
 <details>
-  <summary>Change the turbo shortcut to go to memorized level on 1C instead of 2C if entered from ramp && got to memorize on 2C if entered from off && avoid the blink when turning off from moon</summary>
+  <summary>Change the turbo shortcut to go to memorized level on 1C instead of 2C if entered from ramp && got to memorize on 2C if entered from off && avoid the blink when turning off from low level</summary>
 
 - Add some thing that will be usefull in the next steps \
   ```
@@ -281,7 +285,7 @@ uncomment `#define DEFAULT_2C_STYLE_SIMPLE` and set it to `0` \
       set_level_and_therm_target(nearest_level(0));
     }
     else {
-      if (actual_level == nearest_level(0)) {
+      if (actual_level <= 25) {
         prev_in_moon = 1;
       }
       prev_in_off = 0;
@@ -522,6 +526,15 @@ change `event == EV_click3_hold` to `event == EV_click4_hold` for `USE_BORING_ST
 - change momentary ceiling or turbo to 3C hold
 change `event == EV_click2_hold` to `event == EV_click3_hold` for `momentary ceiling or turbo`
 change `event == EV_click2_hold_release` to `event == EV_click3_hold_release` for `momentary ceiling or turbo`
+*Kanduril/ui/anduril/off-mode.c*
+</details>
+
+<details>
+  <summary>Delete the annoying blink when clicking multiple time but add a slight delay when turning on</summary> 
+
+- delete the event that make the light go to memorized level when waiting for an input after 1C
+delete `#if (B_TIMING_ON != B_TIMEOUT_T)` and `#endif  // if (B_TIMING_ON != B_TIMEOUT_T)`
+delete the `else if (event == EV_click1_release)` function
 *Kanduril/ui/anduril/off-mode.c*
 </details>
 

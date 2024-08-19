@@ -135,7 +135,7 @@ uint8_t steady_state(Event event, uint16_t arg) {
             set_level_and_therm_target(nearest_level(0));
         }
         else {
-            if (actual_level == nearest_level(0)) {
+            if (actual_level <= 25) {
                 prev_in_moon = 1;
             }
             prev_in_off = 0;
