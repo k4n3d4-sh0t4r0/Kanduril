@@ -39,7 +39,7 @@
 #define QUARTERSPEED_LEVEL  2
 
 #define RAMP_SMOOTH_FLOOR 8  // low levels may be unreliable
-#define RAMP_SMOOTH_CEIL  130
+#define RAMP_SMOOTH_CEIL  150
 // 10, 30, 50, [70], 90, 110, 130
 // Nichia B35 model: (0.56), 1.4, 8.4, 34.5, [102], 250, 500, 860, (1300) lm
 #define RAMP_DISCRETE_FLOOR 8

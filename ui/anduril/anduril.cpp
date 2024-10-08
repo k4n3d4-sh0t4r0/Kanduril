@@ -105,7 +105,7 @@
     which is included in <tt>&lt;avr/io.h&gt;</tt>,
     but most of the details come from the respective include file.
     Note that this file always includes the following files:
-    \code
+    \code 
     #include <avr/sfr_defs.h>
     #include <avr/portpins.h>
     #include <avr/common.h>
@@ -127,8 +127,8 @@
     <br>
     - \b XRAMEND
     <br>
-    The last possible RAM location that is addressable. This is equal to
-    RAMEND for devices that do not allow for external RAM. For devices
+    The last possible RAM location that is addressable. This is equal to 
+    RAMEND for devices that do not allow for external RAM. For devices 
     that allow external RAM, this will be larger than RAMEND.
     <br>
     - \b E2END
@@ -142,10 +142,11 @@
     - \b SPM_PAGESIZE
     <br>
     For devices with bootloader support, the flash pagesize
-    (in bytes) to be used for the \c SPM instruction.
+    (in bytes) to be used for the \c SPM instruction. 
     - \b E2PAGESIZE
     <br>
     The size of the EEPROM page.
+    
 */
 /* Copyright (c) 2002, Marek Michalkiewicz <marekm@amelek.gda.pl>
    All rights reserved.
@@ -308,17 +309,17 @@ typedef signed int int64_t __attribute__((__mode__(__DI__)));
 typedef unsigned int uint64_t __attribute__((__mode__(__DI__)));
 /** \name Integer types capable of holding object pointers
     These allow you to declare variables of the same size as a pointer. */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     Signed pointer compatible type. */
 typedef int16_t intptr_t;
 /** \ingroup avr_stdint
     Unsigned pointer compatible type. */
 typedef uint16_t uintptr_t;
-/**@}*/
+/*@}*/
 /** \name Minimum-width integer types
    Integer types having at least the specified width */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     signed int with at least 8 bits. */
 typedef int8_t int_least8_t;
@@ -347,10 +348,10 @@ typedef int64_t int_least64_t;
     \note This type is not available when the compiler
     option -mint8 is in effect. */
 typedef uint64_t uint_least64_t;
-/**@}*/
+/*@}*/
 /** \name Fastest minimum-width integer types
    Integer types being usually fastest having at least the specified width */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     fastest signed int with at least 8 bits. */
 typedef int8_t int_fast8_t;
@@ -379,23 +380,23 @@ typedef int64_t int_fast64_t;
     \note This type is not available when the compiler
     option -mint8 is in effect. */
 typedef uint64_t uint_fast64_t;
-/**@}*/
+/*@}*/
 /** \name Greatest-width integer types
    Types designating integer data capable of representing any value of
    any integer type in the corresponding signed or unsigned category */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     largest signed int available. */
 typedef int64_t intmax_t;
 /** \ingroup avr_stdint
     largest unsigned int available. */
 typedef uint64_t uintmax_t;
-/**@}*/
+/*@}*/
 /* Helping macro */
 /** \name Limits of specified-width integer types
    C++ implementations should define these macros only when
    __STDC_LIMIT_MACROS is defined before <stdint.h> is included */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     largest positive value an int8_t can hold. */
 /** \ingroup avr_stdint
@@ -420,9 +421,9 @@ typedef uint64_t uintmax_t;
     smallest negative value an int64_t can hold. */
 /** \ingroup avr_stdint
     largest value an uint64_t can hold. */
-/**@}*/
+/*@}*/
 /** \name Limits of minimum-width integer types */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     largest positive value an int_least8_t can hold. */
 /** \ingroup avr_stdint
@@ -447,9 +448,9 @@ typedef uint64_t uintmax_t;
     smallest negative value an int_least64_t can hold. */
 /** \ingroup avr_stdint
     largest value an uint_least64_t can hold. */
-/**@}*/
+/*@}*/
 /** \name Limits of fastest minimum-width integer types */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     largest positive value an int_fast8_t can hold. */
 /** \ingroup avr_stdint
@@ -474,29 +475,29 @@ typedef uint64_t uintmax_t;
     smallest negative value an int_fast64_t can hold. */
 /** \ingroup avr_stdint
     largest value an uint_fast64_t can hold. */
-/**@}*/
+/*@}*/
 /** \name Limits of integer types capable of holding object pointers */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     largest positive value an intptr_t can hold. */
 /** \ingroup avr_stdint
     smallest negative value an intptr_t can hold. */
 /** \ingroup avr_stdint
     largest value an uintptr_t can hold. */
-/**@}*/
+/*@}*/
 /** \name Limits of greatest-width integer types */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     largest positive value an intmax_t can hold. */
 /** \ingroup avr_stdint
     smallest negative value an intmax_t can hold. */
 /** \ingroup avr_stdint
     largest value an uintmax_t can hold. */
-/**@}*/
+/*@}*/
 /** \name Limits of other integer types
     C++ implementations should define these macros only when
     __STDC_LIMIT_MACROS is defined before <stdint.h> is included */
-/**@{*/
+/*@{*/
 /** \ingroup avr_stdint
     largest positive value a ptrdiff_t can hold. */
 /** \ingroup avr_stdint
@@ -522,7 +523,7 @@ typedef uint64_t uintmax_t;
     for macros defined as integer constant without suffix */
 /* The GNU C preprocessor defines special macros in the implementation
    namespace to allow a definition that works in #if expressions.  */
-/**@}*/
+/*@}*/
 /** \file */
 /** \defgroup avr_inttypes <inttypes.h>: Integer Type conversions
     \code #include <inttypes.h> \endcode
@@ -550,22 +551,20 @@ typedef uint64_t uintmax_t;
 	   smallval, longval);
     \endcode
 */
-/** \name Far pointers for memory access > 64K */
-/**@{*/
+/** \name Far pointers for memory access >64K */
+/*@{*/
 /** \ingroup avr_inttypes
-    signed integer type that can hold a pointer > 64 KiB */
+    signed integer type that can hold a pointer > 64 KB */
 typedef int32_t int_farptr_t;
 /** \ingroup avr_inttypes
-    unsigned integer type that can hold a pointer > 64 KiB,
-    see also pgm_get_far_address()
- */
+    unsigned integer type that can hold a pointer > 64 KB */
 typedef uint32_t uint_farptr_t;
-/**@}*/
+/*@}*/
 /** \name macros for printf and scanf format specifiers
     For C++, these are only included if __STDC_LIMIT_MACROS
     is defined before including <inttypes.h>.
  */
-/**@{*/
+/*@{*/
 /** \ingroup avr_inttypes
     decimal printf format for int8_t */
 /** \ingroup avr_inttypes
@@ -786,9 +785,9 @@ typedef uint32_t uint_farptr_t;
     decimal scanf format for uintptr_t */
 /** \ingroup avr_inttypes
     hexadecimal scanf format for uintptr_t */
-/**@}*/
+/*@}*/
 /** \name Bit manipulation */
-/**@{*/
+/*@{*/
 /** \def _BV
     \ingroup avr_sfr
     \code #include <avr/io.h>\endcode
@@ -796,9 +795,9 @@ typedef uint32_t uint_farptr_t;
     \note The bit shift is performed by the compiler which then inserts the
     result into the code. Thus, there is no run-time overhead when using
     _BV(). */
-/**@}*/
+/*@}*/
 /** \name IO register bit manipulation */
-/**@{*/
+/*@{*/
 /** \def bit_is_set
     \ingroup avr_sfr
     \code #include <avr/io.h>\endcode
@@ -819,7 +818,7 @@ typedef uint32_t uint_farptr_t;
     \ingroup avr_sfr
     \code #include <avr/io.h>\endcode
     Wait until bit \c bit in IO register \c sfr is clear. */
-/**@}*/
+/*@}*/
 /*
  * Copyright (C) 2022, Microchip Technology Inc. and its subsidiaries ("Microchip")
  * All rights reserved.
@@ -1030,23 +1029,23 @@ typedef uint32_t uint_farptr_t;
    POSSIBILITY OF SUCH DAMAGE.  */
 /* avr/sfr_defs.h - macros for accessing AVR special function registers */
 /* $Id$ */
-/*
-This purpose of this header is to define registers that have not been
-previously defined in the individual device IO header files, and to define
+/* 
+This purpose of this header is to define registers that have not been 
+previously defined in the individual device IO header files, and to define 
 other symbols that are common across AVR device families.
 This file is designed to be included in <avr/io.h> after the individual
 device IO header files, and after <avr/sfr_defs.h>
 */
 /*------------ Registers Not Previously Defined ------------*/
-/*
+/* 
 These are registers that are not previously defined in the individual
 IO header files, OR they are defined here because they are used in parts of
-AVR-LibC even if a device is not selected but a general architecture has
+avr-libc even if a device is not selected but a general architecture has
 been selected.
 */
 /*
 Stack pointer register.
-AVR architecture 1 has no RAM, thus no stack pointer.
+AVR architecture 1 has no RAM, thus no stack pointer. 
 All other architectures do have a stack pointer.  Some devices have only
 less than 256 bytes of possible RAM locations (128 Bytes of SRAM
 and no option for external RAM), thus SPH is officially "reserved"
@@ -1055,7 +1054,7 @@ for them.
 /* Status Register */
 /* SREG bit definitions */
 /*------------ Common Symbols ------------*/
-/*
+/* 
 Generic definitions for registers that are common across multiple AVR devices
 and families.
 */
@@ -1168,27 +1167,36 @@ and families.
     the ELF file, by extracting this information and determining if the fuses
     need to be programmed before programming the Flash and EEPROM memories.
     This also allows a single ELF file to contain all the
-    information needed to program an AVR.
+    information needed to program an AVR. 
     To use the Fuse API, include the <avr/io.h> header file, which in turn
     automatically includes the individual I/O header file and the <avr/fuse.h>
     file. These other two files provides everything necessary to set the AVR
     fuses.
+    
     \par Fuse API
+    
     Each I/O header file must define the FUSE_MEMORY_SIZE macro which is
     defined to the number of fuse bytes that exist in the AVR device.
-    A new type, __fuse_t, is defined as a structure. The number of fields in
-    this structure are determined by the number of fuse bytes in the
+    
+    A new type, __fuse_t, is defined as a structure. The number of fields in 
+    this structure are determined by the number of fuse bytes in the 
     FUSE_MEMORY_SIZE macro.
+    
     If FUSE_MEMORY_SIZE == 1, there is only a single field: byte, of type
     unsigned char.
+    
     If FUSE_MEMORY_SIZE == 2, there are two fields: low, and high, of type
     unsigned char.
+    
     If FUSE_MEMORY_SIZE == 3, there are three fields: low, high, and extended,
     of type unsigned char.
+    
     If FUSE_MEMORY_SIZE > 3, there is a single field: byte, which is an array
     of unsigned char with the size of the array being FUSE_MEMORY_SIZE.
-    A convenience macro, FUSEMEM, is defined as a GCC attribute for a
+    
+    A convenience macro, FUSEMEM, is defined as a GCC attribute for a 
     custom-named section of ".fuse".
+    
     A convenience macro, FUSES, is defined that declares a variable, __fuse, of
     type __fuse_t with the attribute defined by FUSEMEM. This variable
     allows the end user to easily set the fuse data.
@@ -1204,17 +1212,20 @@ and families.
     \code
     #define FUSE_EESAVE      ~_BV(3)
     \endcode
-    \note The _BV macro creates a bit mask from a bit number. It is then
+    \note The _BV macro creates a bit mask from a bit number. It is then 
     inverted to represent logical values for a fuse memory byte.
+    
     To combine the fuse bits macros together to represent a whole fuse byte,
     use the bitwise AND operator, like so:
     \code
     (FUSE_BOOTSZ0 & FUSE_BOOTSZ1 & FUSE_EESAVE & FUSE_SPIEN & FUSE_JTAGEN)
     \endcode
+    
     Each device I/O header file also defines macros that provide default values
     for each fuse byte that is available. LFUSE_DEFAULT is defined for a Low
     Fuse byte. HFUSE_DEFAULT is defined for a High Fuse byte. EFUSE_DEFAULT
     is defined for an Extended Fuse byte.
+    
     If FUSE_MEMORY_SIZE > 3, then the I/O header file defines macros that
     provide default values for each fuse byte like so:
     FUSE0_DEFAULT
@@ -1223,11 +1234,14 @@ and families.
     FUSE3_DEFAULT
     FUSE4_DEFAULT
     ....
+    
     \par API Usage Example
+    
     Putting all of this together is easy. Using C99's designated initializers:
+    
     \code
     #include <avr/io.h>
-    FUSES =
+    FUSES = 
     {
         .low = LFUSE_DEFAULT,
         .high = (FUSE_BOOTSZ0 & FUSE_BOOTSZ1 & FUSE_EESAVE & FUSE_SPIEN & FUSE_JTAGEN),
@@ -1238,10 +1252,12 @@ and families.
         return 0;
     }
     \endcode
+    
     Or, using the variable directly instead of the FUSES macro,
+    
     \code
     #include <avr/io.h>
-    __fuse_t __fuse __attribute__((section (".fuse"))) =
+    __fuse_t __fuse __attribute__((section (".fuse"))) = 
     {
         .low = LFUSE_DEFAULT,
         .high = (FUSE_BOOTSZ0 & FUSE_BOOTSZ1 & FUSE_EESAVE & FUSE_SPIEN & FUSE_JTAGEN),
@@ -1252,11 +1268,12 @@ and families.
         return 0;
     }
     \endcode
+    
     If you are compiling in C++, you cannot use the designated intializers so
     you must do:
     \code
     #include <avr/io.h>
-    FUSES =
+    FUSES = 
     {
         LFUSE_DEFAULT, // .low
         (FUSE_BOOTSZ0 & FUSE_BOOTSZ1 & FUSE_EESAVE & FUSE_SPIEN & FUSE_JTAGEN), // .high
@@ -1267,26 +1284,33 @@ and families.
         return 0;
     }
     \endcode
+    
+    
     However there are a number of caveats that you need to be aware of to
     use this API properly.
+    
     Be sure to include <avr/io.h> to get all of the definitions for the API.
-    The FUSES macro defines a global variable to store the fuse data. This
-    variable is assigned to its own linker section. Assign the desired fuse
+    The FUSES macro defines a global variable to store the fuse data. This 
+    variable is assigned to its own linker section. Assign the desired fuse 
     values immediately in the variable initialization.
-    The .fuse section in the ELF file will get its values from the initial
-    variable assignment ONLY. This means that you can NOT assign values to
+    
+    The .fuse section in the ELF file will get its values from the initial 
+    variable assignment ONLY. This means that you can NOT assign values to 
     this variable in functions and the new values will not be put into the
     ELF .fuse section.
-    The global variable is declared in the FUSES macro has two leading
+    
+    The global variable is declared in the FUSES macro has two leading 
     underscores, which means that it is reserved for the "implementation",
     meaning the library, so it will not conflict with a user-named variable.
+    
     You must initialize ALL fields in the __fuse_t structure. This is because
-    the fuse bits in all bytes default to a logical 1, meaning unprogrammed.
+    the fuse bits in all bytes default to a logical 1, meaning unprogrammed. 
     Normal uninitialized data defaults to all locgial zeros. So it is vital that
     all fuse bytes are initialized, even with default data. If they are not,
     then the fuse bits may not programmed to the desired settings.
+    
     Be sure to have the -mmcu=<em>device</em> flag in your compile command line and
-    your linker command line to have the correct device selected and to have
+    your linker command line to have the correct device selected and to have 
     the correct I/O header file included when you include <avr/io.h>.
     You can print out the contents of the .fuse section in the ELF file by
     using this command line:
@@ -1461,7 +1485,11 @@ typedef struct
     \endcode
 */
 /* Lock Bit Modes */
-/* Copyright (C) 1989-2024 Free Software Foundation, Inc.
+/* Define LOCKBITS_DEFAULT if no previous definition found.
+The lockbits size and default values are different for the new devices
+such as AVRDA variants. So, device headers are expected to have
+have LOCKBITS_DEFAULT defined for these new devices.  */
+/* Copyright (C) 1989-2017 Free Software Foundation, Inc.
 This file is part of GCC.
 GCC is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -1487,6 +1515,13 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 /* snaroff@next.com says the NeXT needs this.  */
 /* This avoids lossage on SunOS but only if stdtypes.h comes first.
    There's no way to win with the other order!  Sun lossage.  */
+/* On 4.3bsd-net2, make sure ansi.h is included, so we have
+   one less case to deal with in the following.  */
+/* On FreeBSD 5, machine/ansi.h does not exist anymore... */
+/* In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
+   defined if the corresponding type is *not* defined.
+   FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
+   NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_ */
 /* Sequent's header files use _PTRDIFF_T_ in some conflicting way.
    Just ignore it.  */
 /* On VxWorks, <type/vxTypesBase.h> may have defined macros like
@@ -1529,6 +1564,10 @@ typedef unsigned int size_t;
    since it no longer defines _BSD_RUNE_T_ yet still desires to export
    rune_t in some cases... */
 typedef int wchar_t;
+/*  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
+    are already defined.  */
+/*  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.  */
+/*  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.  */
 /* A null pointer constant.  */
 /* Offset of member MEMBER in a struct of type TYPE. */
 /** \defgroup avr_eeprom <avr/eeprom.h>: EEPROM handling
@@ -1548,7 +1587,7 @@ typedef int wchar_t;
     ready to be accessed.  Since this may cause long delays if a
     write operation is still pending, time-critical applications
     should first poll the EEPROM e. g. using eeprom_is_ready() before
-    attempting any actual I/O.  But this functions does not wait until
+    attempting any actual I/O.  But this functions are not wait until
     SELFPRGEN in SPMCSR becomes zero.  Do this manually, if your
     softwate contains the Flash burning.
     - As these functions modify IO registers, they are known to be
@@ -1557,6 +1596,7 @@ typedef int wchar_t;
     proper protection (e.g. by disabling interrupts before accessing
     them).
     - All write functions force erase_and_write programming mode.
+    
     - For Xmega the EEPROM start address is 0, like other architectures.
     The reading functions add the 0x2000 value to use EEPROM mapping into
     data space.
@@ -1587,21 +1627,9 @@ uint16_t eeprom_read_word (const uint16_t *__p) __attribute__((__pure__));
  */
 uint32_t eeprom_read_dword (const uint32_t *__p) __attribute__((__pure__));
 /** \ingroup avr_eeprom
-    Read one 64-bit quad word (little endian) from EEPROM address \a __p.
- */
-uint64_t eeprom_read_qword (const uint64_t *__p) __attribute__((__pure__));
-/** \ingroup avr_eeprom
     Read one float value (little endian) from EEPROM address \a __p.
  */
 float eeprom_read_float (const float *__p) __attribute__((__pure__));
-/** \ingroup avr_eeprom
-    Read one double value (little endian) from EEPROM address \a __p.
- */
-double eeprom_read_double (const double *__p) __asm("eeprom_read_dword");
-/** \ingroup avr_eeprom
-    Read one long double value (little endian) from EEPROM address \a __p.
- */
-long double eeprom_read_long_double (const long double *__p) __asm("eeprom_read_qword");
 /** \ingroup avr_eeprom
     Read a block of \a __n bytes from EEPROM address \a __src to SRAM
     \a __dst.
@@ -1620,61 +1648,37 @@ void eeprom_write_word (uint16_t *__p, uint16_t __value);
  */
 void eeprom_write_dword (uint32_t *__p, uint32_t __value);
 /** \ingroup avr_eeprom
-    Write a 64-bit quad word \a __value to EEPROM address \a __p.
- */
-void eeprom_write_qword (uint64_t *__p, uint64_t __value);
-/** \ingroup avr_eeprom
     Write a float \a __value to EEPROM address \a __p.
  */
 void eeprom_write_float (float *__p, float __value);
-/** \ingroup avr_eeprom
-    Write a double \a __value to EEPROM address \a __p.
- */
-void eeprom_write_double (double *__p, double __value) __asm("eeprom_write_dword");
-/** \ingroup avr_eeprom
-    Write a long double \a __value to EEPROM address \a __p.
- */
-void eeprom_write_long_double (long double *__p, long double __value) __asm("eeprom_write_qword");
 /** \ingroup avr_eeprom
     Write a block of \a __n bytes to EEPROM address \a __dst from \a __src.
     \note The argument order is mismatch with common functions like strcpy().
  */
 void eeprom_write_block (const void *__src, void *__dst, size_t __n);
 /** \ingroup avr_eeprom
-    Update a byte \a __value at EEPROM address \a __p.
+    Update a byte \a __value to EEPROM address \a __p.
  */
 void eeprom_update_byte (uint8_t *__p, uint8_t __value);
 /** \ingroup avr_eeprom
-    Update a word \a __value at EEPROM address \a __p.
+    Update a word \a __value to EEPROM address \a __p.
  */
 void eeprom_update_word (uint16_t *__p, uint16_t __value);
 /** \ingroup avr_eeprom
-    Update a 32-bit double word \a __value at EEPROM address \a __p.
+    Update a 32-bit double word \a __value to EEPROM address \a __p.
  */
 void eeprom_update_dword (uint32_t *__p, uint32_t __value);
 /** \ingroup avr_eeprom
-    Update a 64-bit quad word \a __value at EEPROM address \a __p.
- */
-void eeprom_update_qword (uint64_t *__p, uint64_t __value);
-/** \ingroup avr_eeprom
-    Update a float \a __value at EEPROM address \a __p.
+    Update a float \a __value to EEPROM address \a __p.
  */
 void eeprom_update_float (float *__p, float __value);
 /** \ingroup avr_eeprom
-    Update a double \a __value at EEPROM address \a __p.
- */
-void eeprom_update_double (double *__p, double __value) __asm("eeprom_update_dword");
-/** \ingroup avr_eeprom
-    Update a long double \a __value at EEPROM address \a __p.
- */
-void eeprom_update_long_double (long double *__p, long double __value) __asm("eeprom_update_qword");
-/** \ingroup avr_eeprom
-    Update a block of \a __n bytes at EEPROM address \a __dst from \a __src.
+    Update a block of \a __n bytes to EEPROM address \a __dst from \a __src.
     \note The argument order is mismatch with common functions like strcpy().
  */
 void eeprom_update_block (const void *__src, void *__dst, size_t __n);
 /** \name IAR C compatibility defines	*/
-/**@{*/
+/*@{*/
 /** \def _EEPUT
     \ingroup avr_eeprom
     Write a byte to EEPROM. Compatibility define for IAR C.	*/
@@ -1687,7 +1691,7 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
 /** \def __EEGET
     \ingroup avr_eeprom
     Read a byte from EEPROM. Compatibility define for IAR C.	*/
-/**@}*/
+/*@}*/
 /* Copyright (c) 2002,2005,2007 Marek Michalkiewicz
    Copyright (c) 2007, Dean Camera
    All rights reserved.
@@ -1752,7 +1756,7 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     which is included in <tt>&lt;avr/io.h&gt;</tt>,
     but most of the details come from the respective include file.
     Note that this file always includes the following files:
-    \code
+    \code 
     #include <avr/sfr_defs.h>
     #include <avr/portpins.h>
     #include <avr/common.h>
@@ -1774,8 +1778,8 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     <br>
     - \b XRAMEND
     <br>
-    The last possible RAM location that is addressable. This is equal to
-    RAMEND for devices that do not allow for external RAM. For devices
+    The last possible RAM location that is addressable. This is equal to 
+    RAMEND for devices that do not allow for external RAM. For devices 
     that allow external RAM, this will be larger than RAMEND.
     <br>
     - \b E2END
@@ -1789,14 +1793,17 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     - \b SPM_PAGESIZE
     <br>
     For devices with bootloader support, the flash pagesize
-    (in bytes) to be used for the \c SPM instruction.
+    (in bytes) to be used for the \c SPM instruction. 
     - \b E2PAGESIZE
     <br>
     The size of the EEPROM page.
+    
 */
 /* Auxiliary macro for ISR_ALIAS(). */
-/** \file */
-/**@{*/
+/** 
+\file 
+\@{ 
+*/
 /** \name Global manipulation of the interrupt flag
     The global interrupt flag is maintained in the I bit of the status
     register (SREG).
@@ -1808,41 +1815,9 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     \ref optim_code_reorder for things to be taken into account with
     respect to compiler optimizations.
 */
-/** \def sei()
-    \ingroup avr_interrupts
-    Enables interrupts by setting the global interrupt mask. This function
-    actually compiles into a single line of assembly, so there is no function
-    call overhead.  However, the macro also implies a <i>memory barrier</i>
-    which can cause additional loss of optimization.
-    In order to implement atomic access to multi-byte objects,
-    consider using the macros from <util/atomic.h>, rather than
-    implementing them manually with cli() and sei().
-*/
-/** \def cli()
-    \ingroup avr_interrupts
-    Disables all interrupts by clearing the global interrupt mask. This function
-    actually compiles into a single line of assembly, so there is no function
-    call overhead.  However, the macro also implies a <i>memory barrier</i>
-    which can cause additional loss of optimization.
-    In order to implement atomic access to multi-byte objects,
-    consider using the macros from <util/atomic.h>, rather than
-    implementing them manually with cli() and sei().
-*/
 /** \name Macros for writing interrupt handler functions */
-/** \def reti()
-    \ingroup avr_interrupts
-    Returns from an interrupt routine, enabling global interrupts. This should
-    be the last command executed before leaving an #ISR defined with the
-    #ISR_NAKED attribute.
-    This macro actually compiles into a single line of assembly, so there is
-    no function call overhead.
-    \note According to the GCC documentation, the only code supported in
-    naked functions is \ref inline_asm "inline assembly".
-*/
 /** \name ISR attributes */
-/* FIXME: This won't work with older versions of avr-gcc as ISR_NOBLOCK
-          will use `signal' and `interrupt' at the same time.  */
-/**@}*/
+/* \@} */
 /* Copyright (c) 2002,2003,2005,2006,2007 Marek Michalkiewicz, Joerg Wunsch
    Copyright (c) 2007 Eric B. Weddington
    All rights reserved.
@@ -1881,7 +1856,7 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     which is included in <tt>&lt;avr/io.h&gt;</tt>,
     but most of the details come from the respective include file.
     Note that this file always includes the following files:
-    \code
+    \code 
     #include <avr/sfr_defs.h>
     #include <avr/portpins.h>
     #include <avr/common.h>
@@ -1903,8 +1878,8 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     <br>
     - \b XRAMEND
     <br>
-    The last possible RAM location that is addressable. This is equal to
-    RAMEND for devices that do not allow for external RAM. For devices
+    The last possible RAM location that is addressable. This is equal to 
+    RAMEND for devices that do not allow for external RAM. For devices 
     that allow external RAM, this will be larger than RAMEND.
     <br>
     - \b E2END
@@ -1918,13 +1893,14 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     - \b SPM_PAGESIZE
     <br>
     For devices with bootloader support, the flash pagesize
-    (in bytes) to be used for the \c SPM instruction.
+    (in bytes) to be used for the \c SPM instruction. 
     - \b E2PAGESIZE
     <br>
     The size of the EEPROM page.
+    
 */
 /* Copyright (c) 2006, 2007, 2008  Eric B. Weddington
-   Copyright (c) 2011 FrÃ©dÃ©ric Nadeau
+   Copyright (c) 2011 Frédéric Nadeau
    All rights reserved.
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are met:
@@ -1987,7 +1963,7 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     which is included in <tt>&lt;avr/io.h&gt;</tt>,
     but most of the details come from the respective include file.
     Note that this file always includes the following files:
-    \code
+    \code 
     #include <avr/sfr_defs.h>
     #include <avr/portpins.h>
     #include <avr/common.h>
@@ -2009,8 +1985,8 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     <br>
     - \b XRAMEND
     <br>
-    The last possible RAM location that is addressable. This is equal to
-    RAMEND for devices that do not allow for external RAM. For devices
+    The last possible RAM location that is addressable. This is equal to 
+    RAMEND for devices that do not allow for external RAM. For devices 
     that allow external RAM, this will be larger than RAMEND.
     <br>
     - \b E2END
@@ -2024,10 +2000,11 @@ void eeprom_update_block (const void *__src, void *__dst, size_t __n);
     - \b SPM_PAGESIZE
     <br>
     For devices with bootloader support, the flash pagesize
-    (in bytes) to be used for the \c SPM instruction.
+    (in bytes) to be used for the \c SPM instruction. 
     - \b E2PAGESIZE
     <br>
     The size of the EEPROM page.
+    
 */
 /** \file */
 /** \defgroup avr_power <avr/power.h>: Power Reduction Management
@@ -2048,393 +2025,401 @@ USART0). Please consult your device's datasheet, or the header file, to
 find out which macros are applicable to your device.
 \note For device using the XTAL Divide Control Register (XDIV), when prescaler
 is used, Timer/Counter0 can only be used in asynchronous mode. Keep in mind
-that Timer/Counter0 source shall be less than Â¼th of peripheral clock.
+that Timer/Counter0 source shall be less than ¼th of peripheral clock.
 Therefore, when using a typical 32.768 kHz crystal, one shall not scale
 the clock below 131.072 kHz.
+*/
+/** \addtogroup avr_power
 \anchor avr_powermacros
 <small>
-<table>
-  <caption>Power Macros</caption>
+<center>
+<table border="3">
   <tr>
-    <th>Power Macro
-    <th>Description
+    <td width="10%"><strong>Power Macro</strong></td>
+    <td width="15%"><strong>Description</strong></td>
   </tr>
   <tr>
-    <td>\c power_aca_disable()</td>
-    <td>Disable the Analog Comparator on PortA</td>
+    <td>power_aca_disable()</td>
+    <td>Disable the Analog Comparator on PortA.</td>
   </tr>
   <tr>
-    <td>\c power_aca_enable()</td>
-    <td>Enable the Analog Comparator on PortA</td>
+    <td>power_aca_enable()</td>
+    <td>Enable the Analog Comparator on PortA.</td>
   </tr>
   <tr>
-    <td>\c power_adc_enable()</td>
-    <td>Enable the Analog to Digital Converter module</td>
+    <td>power_adc_enable()</td>
+    <td>Enable the Analog to Digital Converter module.</td>
   </tr>
   <tr>
-    <td>\c power_adc_disable()</td>
-    <td>Disable the Analog to Digital Converter module</td>
+    <td>power_adc_disable()</td>
+    <td>Disable the Analog to Digital Converter module.</td>
   </tr>
   <tr>
-    <td>\c power_adca_disable()</td>
+    <td>power_adca_disable()</td>
     <td>Disable the Analog to Digital Converter module on PortA</td>
   </tr>
   <tr>
-    <td>\c power_adca_enable()</td>
+    <td>power_adca_enable()</td>
     <td>Enable the Analog to Digital Converter module on PortA</td>
   </tr>
   <tr>
-    <td>\c power_evsys_disable()</td>
+    <td>power_evsys_disable()</td>
     <td>Disable the EVSYS module</td>
   </tr>
   <tr>
-    <td>\c power_evsys_enable()</td>
+    <td>power_evsys_enable()</td>
     <td>Enable the EVSYS module</td>
   </tr>
   <tr>
-    <td>\c power_hiresc_disable()</td>
+    <td>power_hiresc_disable()</td>
     <td>Disable the HIRES module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_hiresc_enable()</td>
+    <td>power_hiresc_enable()</td>
     <td>Enable the HIRES module on PortC</td>
   </tr>
-  <tr>
-    <td>\c power_lcd_enable()</td>
-    <td>Enable the LCD module</td>
+   <tr>
+    <td>power_lcd_enable()</td>
+    <td>Enable the LCD module.</td>
   </tr>
   <tr>
-    <td>\c power_lcd_disable()</td>
-    <td>Disable the LCD module</td>
+    <td>power_lcd_disable().</td>
+    <td>Disable the LCD module.</td>
   </tr>
   <tr>
-    <td>\c power_pga_enable()</td>
-    <td>Enable the Programmable Gain Amplifier module</td>
+    <td>power_pga_enable()</td>
+    <td>Enable the Programmable Gain Amplifier module.</td>
   </tr>
   <tr>
-    <td>\c power_pga_disable()</td>
-    <td>Disable the Programmable Gain Amplifier module</td>
+    <td>power_pga_disable()</td>
+    <td>Disable the Programmable Gain Amplifier module.</td>
+  </tr>
+  
+  <tr>
+    <td>power_pscr_enable()</td>
+    <td>Enable the Reduced Power Stage Controller module.</td>
   </tr>
   <tr>
-    <td>\c power_pscr_enable()</td>
-    <td>Enable the Reduced Power Stage Controller module</td>
+    <td>power_pscr_disable()</td>
+    <td>Disable the Reduced Power Stage Controller module.</td>
   </tr>
   <tr>
-    <td>\c power_pscr_disable()</td>
-    <td>Disable the Reduced Power Stage Controller module</td>
+    <td>power_psc0_enable()</td>
+    <td>Enable the Power Stage Controller 0 module.</td>
   </tr>
   <tr>
-    <td>\c power_psc0_enable()</td>
-    <td>Enable the Power Stage Controller 0 module</td>
+    <td>power_psc0_disable()</td>
+    <td>Disable the Power Stage Controller 0 module.</td>
   </tr>
   <tr>
-    <td>\c power_psc0_disable()</td>
-    <td>Disable the Power Stage Controller 0 module</td>
+    <td>power_psc1_enable()</td>
+    <td>Enable the Power Stage Controller 1 module.</td>
   </tr>
   <tr>
-    <td>\c power_psc1_enable()</td>
-    <td>Enable the Power Stage Controller 1 module</td>
+    <td>power_psc1_disable()</td>
+    <td>Disable the Power Stage Controller 1 module.</td>
   </tr>
   <tr>
-    <td>\c power_psc1_disable()</td>
-    <td>Disable the Power Stage Controller 1 module</td>
+    <td>power_psc2_enable()</td>
+    <td>Enable the Power Stage Controller 2 module.</td>
   </tr>
   <tr>
-    <td>\c power_psc2_enable()</td>
-    <td>Enable the Power Stage Controller 2 module</td>
+    <td>power_psc2_disable()</td>
+    <td>Disable the Power Stage Controller 2 module.</td>
   </tr>
   <tr>
-    <td>\c power_psc2_disable()</td>
-    <td>Disable the Power Stage Controller 2 module</td>
+    <td>power_ram0_enable()</td>
+    <td>Enable the SRAM block 0 .</td>
   </tr>
   <tr>
-    <td>\c power_ram0_enable()</td>
-    <td>Enable the SRAM block 0</td>
+    <td>power_ram0_disable()</td>
+    <td>Disable the SRAM block 0. </td>
   </tr>
   <tr>
-    <td>\c power_ram0_disable()</td>
-    <td>Disable the SRAM block 0</td>
+    <td>power_ram1_enable()</td>
+    <td>Enable the SRAM block 1 .</td>
   </tr>
   <tr>
-    <td>\c power_ram1_enable()</td>
-    <td>Enable the SRAM block 1</td>
+    <td>power_ram1_disable()</td>
+    <td>Disable the SRAM block 1. </td>
   </tr>
   <tr>
-    <td>\c power_ram1_disable()</td>
-    <td>Disable the SRAM block 1</td>
+    <td>power_ram2_enable()</td>
+    <td>Enable the SRAM block 2 .</td>
   </tr>
   <tr>
-    <td>\c power_ram2_enable()</td>
-    <td>Enable the SRAM block 2</td>
+    <td>power_ram2_disable()</td>
+    <td>Disable the SRAM block 2. </td>
   </tr>
   <tr>
-    <td>\c power_ram2_disable()</td>
-    <td>Disable the SRAM block 2</td>
+    <td>power_ram3_enable()</td>
+    <td>Enable the SRAM block 3 .</td>
   </tr>
   <tr>
-    <td>\c power_ram3_enable()</td>
-    <td>Enable the SRAM block 3</td>
+    <td>power_ram3_disable()</td>
+    <td>Disable the SRAM block 3. </td>
   </tr>
   <tr>
-    <td>\c power_ram3_disable()</td>
-    <td>Disable the SRAM block 3</td>
-  </tr>
-  <tr>
-    <td>\c power_rtc_disable()</td>
+    <td>power_rtc_disable()</td>
     <td>Disable the RTC module</td>
   </tr>
   <tr>
-    <td>\c power_rtc_enable()</td>
+    <td>power_rtc_enable()</td>
     <td>Enable the RTC module</td>
   </tr>
   <tr>
-    <td>\c power_spi_enable()</td>
-    <td>Enable the Serial Peripheral Interface module</td>
+    <td>power_spi_enable()</td>
+    <td>Enable the Serial Peripheral Interface module.</td>
   </tr>
   <tr>
-    <td>\c power_spi_disable()</td>
-    <td>Disable the Serial Peripheral Interface module</td>
+    <td>power_spi_disable()</td>
+    <td>Disable the Serial Peripheral Interface module.</td>
   </tr>
   <tr>
-    <td>\c power_spic_disable()</td>
+    <td>power_spic_disable()</td>
     <td>Disable the SPI module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_spic_enable()</td>
+    <td>power_spic_enable()</td>
     <td>Enable the SPI module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_spid_disable()</td>
+    <td>power_spid_disable()</td>
     <td>Disable the SPI module on PortD</td>
   </tr>
   <tr>
-    <td>\c power_spid_enable()</td>
+    <td>power_spid_enable()</td>
     <td>Enable the SPI module on PortD</td>
   </tr>
   <tr>
-    <td>\c power_tc0c_disable()</td>
+    <td>power_tc0c_disable()</td>
     <td>Disable the TC0 module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_tc0c_enable()</td>
+    <td>power_tc0c_enable()</td>
     <td>Enable the TC0 module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_tc0d_disable()</td>
+    <td>power_tc0d_disable()</td>
     <td>Disable the TC0 module on PortD</td>
   </tr>
   <tr>
-    <td>\c power_tc0d_enable()</td>
+    <td>power_tc0d_enable()</td>
     <td>Enable the TC0 module on PortD</td>
   </tr>
   <tr>
-    <td>\c power_tc0e_disable()</td>
+    <td>power_tc0e_disable()</td>
     <td>Disable the TC0 module on PortE</td>
   </tr>
   <tr>
-    <td>\c power_tc0e_enable()</td>
+    <td>power_tc0e_enable()</td>
     <td>Enable the TC0 module on PortE</td>
   </tr>
   <tr>
-    <td>\c power_tc0f_disable()</td>
+    <td>power_tc0f_disable()</td>
     <td>Disable the TC0 module on PortF</td>
   </tr>
   <tr>
-    <td>\c power_tc0f_enable()</td>
+    <td>power_tc0f_enable()</td>
     <td>Enable the TC0 module on PortF</td>
   </tr>
   <tr>
-    <td>\c power_tc1c_disable()</td>
+    <td>power_tc1c_disable()</td>
     <td>Disable the TC1 module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_tc1c_enable()</td>
+    <td>power_tc1c_enable()</td>
     <td>Enable the TC1 module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_twic_disable()</td>
+    <td>power_twic_disable()</td>
     <td>Disable the Two Wire Interface module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_twic_enable()</td>
+    <td>power_twic_enable()</td>
     <td>Enable the Two Wire Interface module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_twie_disable()</td>
+    <td>power_twie_disable()</td>
     <td>Disable the Two Wire Interface module on PortE</td>
   </tr>
   <tr>
-    <td>\c power_twie_enable()</td>
+    <td>power_twie_enable()</td>
     <td>Enable the Two Wire Interface module on PortE</td>
   </tr>
   <tr>
-    <td>\c power_timer0_enable()</td>
-    <td>Enable the Timer 0 module</td>
+    <td>power_timer0_enable()</td>
+    <td>Enable the Timer 0 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer0_disable()</td>
-    <td>Disable the Timer 0 module</td>
+    <td>power_timer0_disable()</td>
+    <td>Disable the Timer 0 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer1_enable()</td>
-    <td>Enable the Timer 1 module</td>
+    <td>power_timer1_enable()</td>
+    <td>Enable the Timer 1 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer1_disable()</td>
-    <td>Disable the Timer 1 module</td>
+    <td>power_timer1_disable()</td>
+    <td>Disable the Timer 1 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer2_enable()</td>
-    <td>Enable the Timer 2 module</td>
+    <td>power_timer2_enable()</td>
+    <td>Enable the Timer 2 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer2_disable()</td>
-    <td>Disable the Timer 2 module</td>
+    <td>power_timer2_disable()</td>
+    <td>Disable the Timer 2 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer3_enable()</td>
-    <td>Enable the Timer 3 module</td>
+    <td>power_timer3_enable()</td>
+    <td>Enable the Timer 3 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer3_disable()</td>
-    <td>Disable the Timer 3 module</td>
+    <td>power_timer3_disable()</td>
+    <td>Disable the Timer 3 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer4_enable()</td>
-    <td>Enable the Timer 4 module</td>
+    <td>power_timer4_enable()</td>
+    <td>Enable the Timer 4 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer4_disable()</td>
-    <td>Disable the Timer 4 module</td>
+    <td>power_timer4_disable()</td>
+    <td>Disable the Timer 4 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer5_enable()</td>
-    <td>Enable the Timer 5 module</td>
+    <td>power_timer5_enable()</td>
+    <td>Enable the Timer 5 module.</td>
   </tr>
   <tr>
-    <td>\c power_timer5_disable()</td>
-    <td>Disable the Timer 5 module</td>
+    <td>power_timer5_disable()</td>
+    <td>Disable the Timer 5 module.</td>
   </tr>
   <tr>
-    <td>\c power_twi_enable()</td>
-    <td>Enable the Two Wire Interface module</td>
+    <td>power_twi_enable()</td>
+    <td>Enable the Two Wire Interface module.</td>
   </tr>
   <tr>
-    <td>\c power_twi_disable()</td>
-    <td>Disable the Two Wire Interface module</td>
+    <td>power_twi_disable()</td>
+    <td>Disable the Two Wire Interface module.</td>
   </tr>
   <tr>
-    <td>\c power_usart_enable()</td>
-    <td>Enable the USART module</td>
+    <td>power_usart_enable()</td>
+    <td>Enable the USART module.</td>
   </tr>
   <tr>
-    <td>\c power_usart_disable()</td>
-    <td>Disable the USART module</td>
+    <td>power_usart_disable()</td>
+    <td>Disable the USART module.</td>
   </tr>
   <tr>
-    <td>\c power_usart0_enable()</td>
-    <td>Enable the USART 0 module</td>
+    <td>power_usart0_enable()</td>
+    <td>Enable the USART 0 module.</td>
   </tr>
   <tr>
-    <td>\c power_usart0_disable()</td>
-    <td>Disable the USART 0 module</td>
+    <td>power_usart0_disable()</td>
+    <td>Disable the USART 0 module.</td>
   </tr>
   <tr>
-    <td>\c power_usart1_enable()</td>
-    <td>Enable the USART 1 module</td>
+    <td>power_usart1_enable()</td>
+    <td>Enable the USART 1 module.</td>
   </tr>
   <tr>
-    <td>\c power_usart1_disable()</td>
-    <td>Disable the USART 1 module</td>
+    <td>power_usart1_disable()</td>
+    <td>Disable the USART 1 module.</td>
   </tr>
   <tr>
-    <td>\c power_usart2_enable()</td>
-    <td>Enable the USART 2 module</td>
+    <td>power_usart2_enable()</td>
+    <td>Enable the USART 2 module.</td>
   </tr>
   <tr>
-    <td>\c power_usart2_disable()</td>
-    <td>Disable the USART 2 module</td>
+    <td>power_usart2_disable()</td>
+    <td>Disable the USART 2 module.</td>
   </tr>
   <tr>
-    <td>\c power_usart3_enable()</td>
-    <td>Enable the USART 3 module</td>
+    <td>power_usart3_enable()</td>
+    <td>Enable the USART 3 module.</td>
   </tr>
   <tr>
-    <td>\c power_usart3_disable()</td>
-    <td>Disable the USART 3 module</td>
+    <td>power_usart3_disable()</td>
+    <td>Disable the USART 3 module.</td>
   </tr>
   <tr>
-    <td>\c power_usartc0_disable()</td>
+    <td>power_usartc0_disable()</td>
     <td> Disable the USART0 module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_usartc0_enable()</td>
+    <td>power_usartc0_enable()</td>
     <td> Enable the USART0 module on PortC</td>
   </tr>
   <tr>
-    <td>\c power_usartd0_disable()</td>
+    <td>power_usartd0_disable()</td>
     <td> Disable the USART0 module on PortD</td>
   </tr>
   <tr>
-    <td>\c power_usartd0_enable()</td>
+    <td>power_usartd0_enable()</td>
     <td> Enable the USART0 module on PortD</td>
   </tr>
   <tr>
-    <td>\c power_usarte0_disable()</td>
+    <td>power_usarte0_disable()</td>
     <td> Disable the USART0 module on PortE</td>
   </tr>
   <tr>
-    <td>\c power_usarte0_enable()</td>
+    <td>power_usarte0_enable()</td>
     <td> Enable the USART0 module on PortE</td>
   </tr>
   <tr>
-    <td>\c power_usartf0_disable()</td>
+    <td>power_usartf0_disable()</td>
     <td> Disable the USART0 module on PortF</td>
   </tr>
   <tr>
-    <td>\c power_usartf0_enable()</td>
+    <td>power_usartf0_enable()</td>
     <td> Enable the USART0 module on PortF</td>
   </tr>
   <tr>
-    <td>\c power_usb_enable()</td>
-    <td>Enable the USB module</td>
+    <td>power_usb_enable()</td>
+    <td>Enable the USB module.</td>
   </tr>
   <tr>
-    <td>\c power_usb_disable()</td>
-    <td>Disable the USB module</td>
+    <td>power_usb_disable()</td>
+    <td>Disable the USB module.</td>
   </tr>
   <tr>
-    <td>\c power_usi_enable()</td>
-    <td>Enable the Universal Serial Interface module</td>
+    <td>power_usi_enable()</td>
+    <td>Enable the Universal Serial Interface module.</td>
   </tr>
   <tr>
-    <td>\c power_usi_disable()</td>
-    <td>Disable the Universal Serial Interface module</td>
+    <td>power_usi_disable()</td>
+    <td>Disable the Universal Serial Interface module.</td>
   </tr>
   <tr>
-    <td>\c power_vadc_enable()</td>
-    <td>Enable the Voltage ADC module</td>
+    <td>power_vadc_enable()</td>
+    <td>Enable the Voltage ADC module.</td>
   </tr>
   <tr>
-    <td>\c power_vadc_disable()</td>
-    <td>Disable the Voltage ADC module</td>
+    <td>power_vadc_disable()</td>
+    <td>Disable the Voltage ADC module.</td>
   </tr>
   <tr>
-    <td>\c power_all_enable()</td>
-    <td>Enable all modules</td>
+    <td>power_all_enable()</td>
+    <td>Enable all modules.</td>
   </tr>
   <tr>
-    <td>\c power_all_disable()</td>
-    <td>Disable all modules</td>
+    <td>power_all_disable()</td>
+    <td>Disable all modules.</td>
   </tr>
 </table>
+</center>
 </small>
-*/
-static __inline__ __attribute__((__always_inline__)) void __power_all_enable()
+@} */
+static __inline void
+__attribute__ ((__always_inline__))
+__power_all_enable()
 {
     (*(volatile uint8_t *)((0x34) + 0x20)) &= (uint8_t)~(((1<<0)|(1<<1)|(1<<2)|(1<<3)|(1<<4)|(1<<5)|(1<<6)));
 }
-static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
+static __inline void
+__attribute__ ((__always_inline__))
+__power_all_disable()
 {
     (*(volatile uint8_t *)((0x34) + 0x20)) |= (uint8_t)(((1<<0)|(1<<1)|(1<<2)|(1<<3)|(1<<4)|(1<<5)|(1<<6)));
 }
@@ -2503,7 +2488,7 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     which is included in <tt>&lt;avr/io.h&gt;</tt>,
     but most of the details come from the respective include file.
     Note that this file always includes the following files:
-    \code
+    \code 
     #include <avr/sfr_defs.h>
     #include <avr/portpins.h>
     #include <avr/common.h>
@@ -2525,8 +2510,8 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     <br>
     - \b XRAMEND
     <br>
-    The last possible RAM location that is addressable. This is equal to
-    RAMEND for devices that do not allow for external RAM. For devices
+    The last possible RAM location that is addressable. This is equal to 
+    RAMEND for devices that do not allow for external RAM. For devices 
     that allow external RAM, this will be larger than RAMEND.
     <br>
     - \b E2END
@@ -2540,15 +2525,14 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     - \b SPM_PAGESIZE
     <br>
     For devices with bootloader support, the flash pagesize
-    (in bytes) to be used for the \c SPM instruction.
+    (in bytes) to be used for the \c SPM instruction. 
     - \b E2PAGESIZE
     <br>
     The size of the EEPROM page.
+    
 */
 /** \file */
-/** \defgroup avr_sleep <avr/sleep.h>: Power Management and Sleep Modes */
-/**@{*/
-/**
+/** \defgroup avr_sleep <avr/sleep.h>: Power Management and Sleep Modes
     \code #include <avr/sleep.h>\endcode
     Use of the \c SLEEP instruction can allow an application to reduce its
     power comsumption considerably. AVR devices can be put into different
@@ -2639,7 +2623,7 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     Put the device into sleep mode.  The SE bit must be set
     beforehand, and it is recommended to clear it afterwards.
 */
-/**@}*/
+/*@}*/
 /* Copyright (c) 2002, 2004 Marek Michalkiewicz
    Copyright (c) 2005, 2006, 2007 Eric B. Weddington
    All rights reserved.
@@ -2707,7 +2691,7 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     which is included in <tt>&lt;avr/io.h&gt;</tt>,
     but most of the details come from the respective include file.
     Note that this file always includes the following files:
-    \code
+    \code 
     #include <avr/sfr_defs.h>
     #include <avr/portpins.h>
     #include <avr/common.h>
@@ -2729,8 +2713,8 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     <br>
     - \b XRAMEND
     <br>
-    The last possible RAM location that is addressable. This is equal to
-    RAMEND for devices that do not allow for external RAM. For devices
+    The last possible RAM location that is addressable. This is equal to 
+    RAMEND for devices that do not allow for external RAM. For devices 
     that allow external RAM, this will be larger than RAMEND.
     <br>
     - \b E2END
@@ -2744,10 +2728,11 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     - \b SPM_PAGESIZE
     <br>
     For devices with bootloader support, the flash pagesize
-    (in bytes) to be used for the \c SPM instruction.
+    (in bytes) to be used for the \c SPM instruction. 
     - \b E2PAGESIZE
     <br>
     The size of the EEPROM page.
+    
 */
 /** \file */
 /** \defgroup avr_watchdog <avr/wdt.h>: Watchdog timer handling
@@ -2774,9 +2759,9 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
     #include <stdint.h>
     #include <avr/wdt.h>
     uint8_t mcusr_mirror __attribute__ ((section (".noinit")));
-    __attribute__((used, unused, naked, section(".init3")))
-    static void get_mcusr (void);
-    void get_mcusr (void)
+    void get_mcusr(void)       __attribute__((naked))       __attribute__((section(".init3")));
+));
+    void get_mcusr(void)
     {
       mcusr_mirror = MCUSR;
       MCUSR = 0;
@@ -2794,7 +2779,17 @@ static __inline__ __attribute__((__always_inline__)) void __power_all_disable()
    a call to this instruction is required before the timer expires,
    otherwise a watchdog-initiated device reset will occur. 
 */
-static __inline__ __attribute__((__always_inline__))
+/**
+   \ingroup avr_watchdog
+   Enable the watchdog timer, configuring it for expiry after
+   \c timeout (which is a combination of the \c WDP0 through
+   \c WDP2 bits to write into the \c WDTCR register; For those devices 
+   that have a \c WDTCSR register, it uses the combination of the \c WDP0 
+   through \c WDP3 bits).
+   See also the symbolic constants \c WDTO_15MS et al.
+*/
+static __inline__
+__attribute__ ((__always_inline__))
 void wdt_enable (const uint8_t value)
 {
  if (!(((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) < 0x40 + 0x20) && !(((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20)))) < 0x40 + 0x20))
@@ -2805,7 +2800,7 @@ void wdt_enable (const uint8_t value)
    "wdr" "\n\t"
    "sts %[CCPADDRESS],%[SIGNATURE]" "\n\t"
    "sts %[WDTREG],%[WDVALUE]" "\n\t"
-   "out __SREG__,__tmp_reg__"
+   "out __SREG__,__tmp_reg__" "\n\t"
    : /* no outputs */
    : [CCPADDRESS] "n" (((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20))))),
    [SIGNATURE] "r" ((uint8_t)0xD8),
@@ -2823,7 +2818,7 @@ void wdt_enable (const uint8_t value)
    "wdr" "\n\t"
    "sts %[CCPADDRESS],%[SIGNATURE]" "\n\t"
    "out %[WDTREG],%[WDVALUE]" "\n\t"
-   "out __SREG__,__tmp_reg__"
+   "out __SREG__,__tmp_reg__" "\n\t"
    : /* no outputs */
    : [CCPADDRESS] "n" (((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20))))),
    [SIGNATURE] "r" ((uint8_t)0xD8),
@@ -2841,7 +2836,7 @@ void wdt_enable (const uint8_t value)
    "wdr" "\n\t"
    "out %[CCPADDRESS],%[SIGNATURE]" "\n\t"
    "sts %[WDTREG],%[WDVALUE]" "\n\t"
-   "out __SREG__,__tmp_reg__"
+   "out __SREG__,__tmp_reg__" "\n\t"
    : /* no outputs */
    : [CCPADDRESS] "I" ((((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) - 0x20)),
    [SIGNATURE] "r" ((uint8_t)0xD8),
@@ -2859,7 +2854,7 @@ void wdt_enable (const uint8_t value)
    "wdr" "\n\t"
    "out %[CCPADDRESS],%[SIGNATURE]" "\n\t"
    "out %[WDTREG],%[WDVALUE]" "\n\t"
-   "out __SREG__,__tmp_reg__"
+   "out __SREG__,__tmp_reg__" "\n\t"
    : /* no outputs */
    : [CCPADDRESS] "I" ((((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) - 0x20)),
    [SIGNATURE] "r" ((uint8_t)0xD8),
@@ -2870,12 +2865,13 @@ void wdt_enable (const uint8_t value)
    );
  }
 }
-static __inline__ __attribute__((__always_inline__))
+static __inline__
+__attribute__ ((__always_inline__))
 void wdt_disable (void)
 {
  if (!(((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) < 0x40 + 0x20) && !(((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20)))) < 0x40 + 0x20))
  {
-        uint8_t __temp_wd;
+        uint8_t temp_wd;
         __asm__ __volatile__ (
     "in __tmp_reg__,__SREG__" "\n\t"
     "cli" "\n\t"
@@ -2884,18 +2880,19 @@ void wdt_disable (void)
     "lds %[TEMP_WD],%[WDTREG]" "\n\t"
     "cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
     "sts %[WDTREG],%[TEMP_WD]" "\n\t"
-    "out __SREG__,__tmp_reg__"
-    : [TEMP_WD] "=d" (__temp_wd)
+    "out __SREG__,__tmp_reg__" "\n\t"
+    : /*no output */
     : [CCPADDRESS] "n" (((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20))))),
     [SIGNATURE] "r" ((uint8_t)0xD8),
     [WDTREG] "n" (((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20))))),
+    [TEMP_WD] "d" (temp_wd),
     [WDVALUE] "n" (1 << 3)
     : "r0"
     );
  }
  else if (!(((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) < 0x40 + 0x20) && (((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20)))) < 0x40 + 0x20))
  {
-        uint8_t __temp_wd;
+        uint8_t temp_wd;
         __asm__ __volatile__ (
     "in __tmp_reg__,__SREG__" "\n\t"
     "cli" "\n\t"
@@ -2904,18 +2901,19 @@ void wdt_disable (void)
     "in %[TEMP_WD],%[WDTREG]" "\n\t"
     "cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
     "out %[WDTREG],%[TEMP_WD]" "\n\t"
-    "out __SREG__,__tmp_reg__"
-    : [TEMP_WD] "=d" (__temp_wd)
+    "out __SREG__,__tmp_reg__" "\n\t"
+    : /*no output */
     : [CCPADDRESS] "n" (((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20))))),
     [SIGNATURE] "r" ((uint8_t)0xD8),
     [WDTREG] "I" ((((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20)))) - 0x20)),
+    [TEMP_WD] "d" (temp_wd),
     [WDVALUE] "n" (1 << 3)
     : "r0"
     );
  }
  else if ((((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) < 0x40 + 0x20) && !(((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20)))) < 0x40 + 0x20))
  {
-        uint8_t __temp_wd;
+        uint8_t temp_wd;
         __asm__ __volatile__ (
     "in __tmp_reg__,__SREG__" "\n\t"
     "cli" "\n\t"
@@ -2924,18 +2922,19 @@ void wdt_disable (void)
     "lds %[TEMP_WD],%[WDTREG]" "\n\t"
     "cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
     "sts %[WDTREG],%[TEMP_WD]" "\n\t"
-    "out __SREG__,__tmp_reg__"
-    : [TEMP_WD] "=d" (__temp_wd)
+    "out __SREG__,__tmp_reg__" "\n\t"
+    : /*no output */
     : [CCPADDRESS] "I" ((((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) - 0x20)),
     [SIGNATURE] "r" ((uint8_t)0xD8),
     [WDTREG] "n" (((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20))))),
+    [TEMP_WD] "d" (temp_wd),
     [WDVALUE] "n" (1 << 3)
     : "r0"
     );
  }
  else
  {
-        uint8_t __temp_wd;
+        uint8_t temp_wd;
         __asm__ __volatile__ (
     "in __tmp_reg__,__SREG__" "\n\t"
     "cli" "\n\t"
@@ -2944,11 +2943,12 @@ void wdt_disable (void)
     "in %[TEMP_WD],%[WDTREG]" "\n\t"
     "cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
     "out %[WDTREG],%[TEMP_WD]" "\n\t"
-    "out __SREG__,__tmp_reg__"
-    : [TEMP_WD] "=d" (__temp_wd)
+    "out __SREG__,__tmp_reg__" "\n\t"
+    : /*no output */
     : [CCPADDRESS] "I" ((((uint16_t) &((*(volatile uint8_t *)((0x2F) + 0x20)))) - 0x20)),
     [SIGNATURE] "r" ((uint8_t)0xD8),
     [WDTREG] "I" ((((uint16_t) &((*(volatile uint8_t *)((0x30) + 0x20)))) - 0x20)),
+    [TEMP_WD] "d" (temp_wd),
     [WDVALUE] "n" (1 << 3)
     : "r0"
     );
@@ -2994,8 +2994,9 @@ void wdt_disable (void)
     ATtiny24, ATtiny44, ATtiny84, ATtiny84A,
     ATtiny25, ATtiny45, ATtiny85, 
     ATtiny261, ATtiny461, ATtiny861, 
-    ATmega48*, ATmega88*, ATmega168*, ATmega328*,
-    ATmega164P, ATmega324P, ATmega324PB, ATmega644P, ATmega644,
+    ATmega48, ATmega88, ATmega168,
+    ATmega48P, ATmega88P, ATmega168P, ATmega328P,
+    ATmega164P, ATmega324P, ATmega644P, ATmega644,
     ATmega640, ATmega1280, ATmega1281, ATmega2560, ATmega2561,
     ATmega8HVA, ATmega16HVA, ATmega32HVB,
     ATmega406, ATmega1284P,
@@ -3015,8 +3016,9 @@ void wdt_disable (void)
     ATtiny24, ATtiny44, ATtiny84, ATtiny84A,
     ATtiny25, ATtiny45, ATtiny85, 
     ATtiny261, ATtiny461, ATtiny861, 
-    ATmega48*, ATmega88*, ATmega168*, ATmega328*,
-    ATmega164P, ATmega324P, ATmega324PB, ATmega644P, ATmega644,
+    ATmega48, ATmega48A, ATmega48PA, ATmega88, ATmega168,
+    ATmega48P, ATmega88P, ATmega168P, ATmega328P,
+    ATmega164P, ATmega324P, ATmega644P, ATmega644,
     ATmega640, ATmega1280, ATmega1281, ATmega2560, ATmega2561,
     ATmega8HVA, ATmega16HVA, ATmega32HVB,
     ATmega406, ATmega1284P,
@@ -3628,12 +3630,14 @@ Config cfg;
     #include <avr/pgmspace.h>
     \endcode
     The functions in this module provide interfaces for a program to access
-    data stored in program space (flash memory) of the device.
+    data stored in program space (flash memory) of the device.  In order to
+    use these functions, the target device must support either the \c LPM or
+    \c ELPM instructions.
     \note These functions are an attempt to provide some compatibility with
     header files that come with IAR C, to make porting applications between
     different compilers easier.  This is not 100% compatibility though (GCC
     does not have full support for multiple address spaces yet).
-    \note If you are working with strings which are completely based in RAM,
+    \note If you are working with strings which are completely based in ram,
     use the standard string functions described in \ref avr_string.
     \note If possible, put your constant tables in the lower 64 KB and use
     pgm_read_byte_near() or pgm_read_word_near() instead of
@@ -3678,7 +3682,7 @@ Config cfg;
   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
   POSSIBILITY OF SUCH DAMAGE. */
 /* $Id$ */
-/* Copyright (C) 1989-2024 Free Software Foundation, Inc.
+/* Copyright (C) 1989-2017 Free Software Foundation, Inc.
 This file is part of GCC.
 GCC is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -3703,6 +3707,13 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
    the symbols that indicate this file's entire job has been done.  */
 /* This avoids lossage on SunOS but only if stdtypes.h comes first.
    There's no way to win with the other order!  Sun lossage.  */
+/* On 4.3bsd-net2, make sure ansi.h is included, so we have
+   one less case to deal with in the following.  */
+/* On FreeBSD 5, machine/ansi.h does not exist anymore... */
+/* In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
+   defined if the corresponding type is *not* defined.
+   FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
+   NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_ */
 /* Sequent's header files use _PTRDIFF_T_ in some conflicting way.
    Just ignore it.  */
 /* On VxWorks, <type/vxTypesBase.h> may have defined macros like
@@ -3729,6 +3740,10 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
    and not (wchar_t) -1, for each defined multibyte character.  */
 /* Define this type if we are doing the whole job,
    or if we want this type in particular.  */
+/*  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
+    are already defined.  */
+/*  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.  */
+/*  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.  */
 /* A null pointer constant.  */
 /* Offset of member MEMBER in a struct of type TYPE. */
 /* Copyright (c) 2002,2003,2005,2006,2007 Marek Michalkiewicz, Joerg Wunsch
@@ -3769,7 +3784,7 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
     which is included in <tt>&lt;avr/io.h&gt;</tt>,
     but most of the details come from the respective include file.
     Note that this file always includes the following files:
-    \code
+    \code 
     #include <avr/sfr_defs.h>
     #include <avr/portpins.h>
     #include <avr/common.h>
@@ -3791,8 +3806,8 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
     <br>
     - \b XRAMEND
     <br>
-    The last possible RAM location that is addressable. This is equal to
-    RAMEND for devices that do not allow for external RAM. For devices
+    The last possible RAM location that is addressable. This is equal to 
+    RAMEND for devices that do not allow for external RAM. For devices 
     that allow external RAM, this will be larger than RAMEND.
     <br>
     - \b E2END
@@ -3806,78 +3821,18 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
     - \b SPM_PAGESIZE
     <br>
     For devices with bootloader support, the flash pagesize
-    (in bytes) to be used for the \c SPM instruction.
+    (in bytes) to be used for the \c SPM instruction. 
     - \b E2PAGESIZE
     <br>
     The size of the EEPROM page.
+    
 */
 /**
    \ingroup avr_pgmspace
-   \def PROGMEM_FAR
+   \def PROGMEM
    Attribute to use in order to declare an object being located in
-   far flash ROM.  This is similar to #PROGMEM, except that it puts
-   the static storage object in section
-   <tt>\ref sec_dot_progmemx ".progmemx.data"</tt>.
-   In order to access the object,
-   the <tt>pgm_read_*_far</tt> and \c _PF functions declare in this header
-   can be used.  In order to get its address, see pgm_get_far_address().
-   It only makes sense to put read-only objects in this section,
-   though the compiler does not diagnose when this is not the case.  */
-static __inline__ __attribute__((__always_inline__)) char pgm_read_char (const char *__addr) { char __res; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned char pgm_read_unsigned_char (const unsigned char *__addr) { unsigned char __res; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) signed char pgm_read_signed_char (const signed char *__addr) { signed char __res; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint8_t pgm_read_u8 (const uint8_t *__addr) { uint8_t __res; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int8_t pgm_read_i8 (const int8_t *__addr) { int8_t __res; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint16_t pgm_read_u16 (const uint16_t *__addr) { uint16_t __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int16_t pgm_read_i16 (const int16_t *__addr) { int16_t __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int pgm_read_int (const int *__addr) { int __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) signed pgm_read_signed (const signed *__addr) { signed __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned pgm_read_unsigned (const unsigned *__addr) { unsigned __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) signed int pgm_read_signed_int (const signed int *__addr) { signed int __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned int pgm_read_unsigned_int (const unsigned int *__addr) { unsigned int __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) short pgm_read_short (const short *__addr) { short __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned short pgm_read_unsigned_short (const unsigned short *__addr) { unsigned short __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) __int24 pgm_read_i24 (const __int24 *__addr) { __int24 __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) __uint24 pgm_read_u24 (const __uint24 *__addr) { __uint24 __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint32_t pgm_read_u32 (const uint32_t *__addr) { uint32_t __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int32_t pgm_read_i32 (const int32_t *__addr) { int32_t __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) float pgm_read_float (const float *__addr) { float __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) long pgm_read_long (const long *__addr) { long __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned long pgm_read_unsigned_long (const unsigned long *__addr) { unsigned long __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) double pgm_read_double (const double *__addr) { double __res; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint64_t pgm_read_u64 (const uint64_t *__addr) { uint64_t __res; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int64_t pgm_read_i64 (const int64_t *__addr) { int64_t __res; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) long long pgm_read_long_long (const long long *__addr) { long long __res; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned long long pgm_read_unsigned_long_long (const unsigned long long *__addr) { unsigned long long __res; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-static __inline__ __attribute__((__always_inline__)) long double pgm_read_long_double (const long double *__addr) { long double __res; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__addr)); return __res; }
-/* No ELPM: Fall back to __LPM__<N>.  */
-static __inline__ __attribute__((__always_inline__)) char pgm_read_char_far (uint_farptr_t __addr) { char __res; const char *__a = (const char*)(uint16_t) __addr; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned char pgm_read_unsigned_char_far (uint_farptr_t __addr) { unsigned char __res; const unsigned char *__a = (const unsigned char*)(uint16_t) __addr; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) signed char pgm_read_signed_char_far (uint_farptr_t __addr) { signed char __res; const signed char *__a = (const signed char*)(uint16_t) __addr; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint8_t pgm_read_u8_far (uint_farptr_t __addr) { uint8_t __res; const uint8_t *__a = (const uint8_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int8_t pgm_read_i8_far (uint_farptr_t __addr) { int8_t __res; const int8_t *__a = (const int8_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %0,%a1" : "=r" (__res) : "z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint16_t pgm_read_u16_far (uint_farptr_t __addr) { uint16_t __res; const uint16_t *__a = (const uint16_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int16_t pgm_read_i16_far (uint_farptr_t __addr) { int16_t __res; const int16_t *__a = (const int16_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int pgm_read_int_far (uint_farptr_t __addr) { int __res; const int *__a = (const int*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned pgm_read_unsigned_far (uint_farptr_t __addr) { unsigned __res; const unsigned *__a = (const unsigned*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned int pgm_read_unsigned_int_far (uint_farptr_t __addr) { unsigned int __res; const unsigned int *__a = (const unsigned int*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) signed pgm_read_signed_far (uint_farptr_t __addr) { signed __res; const signed *__a = (const signed*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) signed int pgm_read_signed_int_far (uint_farptr_t __addr) { signed int __res; const signed int *__a = (const signed int*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) short pgm_read_short_far (uint_farptr_t __addr) { short __res; const short *__a = (const short*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned short pgm_read_unsigned_short_far (uint_farptr_t __addr) { unsigned short __res; const unsigned short *__a = (const unsigned short*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) __int24 pgm_read_i24_far (uint_farptr_t __addr) { __int24 __res; const __int24 *__a = (const __int24*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) __uint24 pgm_read_u24_far (uint_farptr_t __addr) { __uint24 __res; const __uint24 *__a = (const __uint24*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint32_t pgm_read_u32_far (uint_farptr_t __addr) { uint32_t __res; const uint32_t *__a = (const uint32_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int32_t pgm_read_i32_far (uint_farptr_t __addr) { int32_t __res; const int32_t *__a = (const int32_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) float pgm_read_float_far (uint_farptr_t __addr) { float __res; const float *__a = (const float*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) long pgm_read_long_far (uint_farptr_t __addr) { long __res; const long *__a = (const long*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned long pgm_read_unsigned_long_far (uint_farptr_t __addr) { unsigned long __res; const unsigned long *__a = (const unsigned long*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) double pgm_read_double_far (uint_farptr_t __addr) { double __res; const double *__a = (const double*)(uint16_t) __addr; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" "\n\t" "lpm %C0,%a1+" "\n\t" "lpm %D0,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) uint64_t pgm_read_u64_far (uint_farptr_t __addr) { uint64_t __res; const uint64_t *__a = (const uint64_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) int64_t pgm_read_i64_far (uint_farptr_t __addr) { int64_t __res; const int64_t *__a = (const int64_t*)(uint16_t) __addr; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) long long pgm_read_long_long_far (uint_farptr_t __addr) { long long __res; const long long *__a = (const long long*)(uint16_t) __addr; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) unsigned long long pgm_read_unsigned_long_long_far (uint_farptr_t __addr) { unsigned long long __res; const unsigned long long *__a = (const unsigned long long*)(uint16_t) __addr; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
-static __inline__ __attribute__((__always_inline__)) long double pgm_read_long_double_far (uint_farptr_t __addr) { long double __res; const long double *__a = (const long double*)(uint16_t) __addr; __asm __volatile__ ("lpm %r0+0,%a1+" "\n\t" "lpm %r0+1,%a1+" "\n\t" "lpm %r0+2,%a1+" "\n\t" "lpm %r0+3,%a1+" "\n\t" "lpm %r0+4,%a1+" "\n\t" "lpm %r0+5,%a1+" "\n\t" "lpm %r0+6,%a1+" "\n\t" "lpm %r0+7,%a1+" : "=r" (__res), "+z" (__a)); return __res; }
+   flash ROM.
+ */
 /* Although in C, we can get away with just using __c, it does not work in
    C++. We need to use &__c[0] to avoid the compiler puking. Dave Hylands
    explaned it thusly,
@@ -3887,94 +3842,89 @@ static __inline__ __attribute__((__always_inline__)) long double pgm_read_long_d
      returned by &__c[0] is a prog_char *, which explains why it works
      fine. */
 /* The real thing. */
-/* The real thing. */
-/* These are used down the line for pgm_read_byte[_near] etc. */
+/*
+Macro to read data from program memory for avr tiny parts(tiny 4/5/9/10/20/40).
+why:
+- LPM instruction is not available in AVR_TINY instruction set.
+- Programs are executed starting from address 0x0000 in program memory.
+But it must be addressed starting from 0x4000 when accessed via data memory.
+Reference: TINY device (ATTiny 4,5,9,10,20 and 40) datasheets
+Bug: avrtc-536
+*/
 /** \ingroup avr_pgmspace
-    \def pgm_read_byte_near(__addr)
-    Read a byte from the program space with a 16-bit (near) byte-address. */
+    \def pgm_read_byte_near(address_short)
+    Read a byte from the program space with a 16-bit (near) address. 
+    \note The address is a byte address.
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_word_near(__addr)
-    Read a word from the program space with a 16-bit (near) byte-address. */
+    \def pgm_read_word_near(address_short)
+    Read a word from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_dword_near(__addr)
-    Read a double word from the program space with a 16-bit (near)
-    byte-address.  */
+    \def pgm_read_dword_near(address_short)
+    Read a double word from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_qword_near(__addr)
-    Read a quad-word from the program space with a 16-bit (near)
-    byte-address.  */
+    \def pgm_read_float_near(address_short)
+    Read a float from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_float_near (const float *address)
-    Read a \c float from the program space with a 16-bit (near) byte-address.*/
+    \def pgm_read_ptr_near(address_short)
+    Read a pointer from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_ptr_near(__addr)
-    Read a pointer from the program space with a 16-bit (near) byte-address. */
+    \def pgm_read_byte(address_short)
+    Read a byte from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_byte_far(__addr)
-    Read a byte from the program space with a 32-bit (far) byte-address. */
+    \def pgm_read_word(address_short)
+    Read a word from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_word_far(__addr)
-    Read a word from the program space with a 32-bit (far) byte-address. */
+    \def pgm_read_dword(address_short)
+    Read a double word from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_dword_far(__addr)
-    Read a double word from the program space with a 32-bit (far)
-    byte-address. */
+    \def pgm_read_float(address_short)
+    Read a float from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
-    \def pgm_read_qword_far(__addr)
-    Read a quad-word from the program space with a 32-bit (far)
-    byte-address. */
-/** \ingroup avr_pgmspace
-    \def pgm_read_ptr_far(__addr)
-    Read a pointer from the program space with a 32-bit (far) byte-address. */
-/** \ingroup avr_pgmspace
-    \def pgm_read_byte(__addr)
-    Read a byte from the program space with a 16-bit (near) nyte-address. */
-/** \ingroup avr_pgmspace
-    \def pgm_read_word(__addr)
-    Read a word from the program space with a 16-bit (near) byte-address. */
-/** \ingroup avr_pgmspace
-    \def pgm_read_dword(__addr)
-    Read a double word from the program space with a 16-bit (near)
-    byte-address. */
-/** \ingroup avr_pgmspace
-    \def pgm_read_qword(__addr)
-    Read a quad-word from the program space with a 16-bit (near)
-    byte-address. */
-/** \ingroup avr_pgmspace
-    \def pgm_read_ptr(__addr)
-    Read a pointer from the program space with a 16-bit (near) byte-address. */
+    \def pgm_read_ptr(address_short)
+    Read a pointer from the program space with a 16-bit (near) address. 
+    \note The address is a byte address. 
+    The address is in the program space. */
 /** \ingroup avr_pgmspace
     \def pgm_get_far_address(var)
-   This macro evaluates to a ::uint_farptr_t 32-bit "far" pointer (only
-   24 bits used) to data even beyond the 64 KiB limit for the 16-bit ordinary
-   pointer.  It is similar to the '&' operator, with some limitations.
-   Example:
-   \code
-   #include <avr/pgmspace.h>
-   // Section .progmemx.data is located after all the code sections.
-   __attribute__((section(".progmemx.data")))
-   const int data[] = { 2, 3, 5, 7, 9, 11 };
-   int get_data (uint8_t idx)
-   {
-       uint_farptr_t pdata = pgm_get_far_address (data[0]);
-       return pgm_read_int_far (pdata + idx * sizeof(int));
-   }
-   \endcode
+   This macro facilitates the obtention of a 32 bit "far" pointer (only 24 bits
+   used) to data even passed the 64KB limit for the 16 bit ordinary pointer. It
+   is similar to the '&' operator, with some limitations.
    Comments:
-   - The overhead is minimal and it's mainly due to the 32-bit size operation.
+   - The overhead is minimal and it's mainly due to the 32 bit size operation.
    - 24 bit sizes guarantees the code compatibility for use in future devices.
-   - \p var has to be resolved at link-time as an existing symbol,
-     i.e. a simple variable name, an array name, or an array or structure
-     element provided the offset is known at compile-time, and \p var is
-     located in static storage, etc.
-   - The returned value is the symbol's \ref sec_vma "VMA"
-     (virtual memory address)
-     determined by the linker and falls in the corresponding memory region.
-     The AVR Harvard architecture requires non-overlapping VMA areas for
-     the multiple \ref sec_memory_regions "memory regions" in the processor:
-     Flash ROM, RAM, and EEPROM.  Typical offset for these are
-     \c 0x0, \c 0x800xx0, and \c 0x810000 respectively, derived from the
-     linker script used and linker options.
+   - hh8() is an undocumented feature but seems to give the third significant byte
+     of a 32 bit data and accepts symbols, complementing the functionality of hi8()
+     and lo8(). There is not an equivalent assembler function to get the high
+     significant byte.
+   - 'var' has to be resolved at linking time as an existing symbol, i.e, a simple
+     type variable name, an array name (not an indexed element of the array, if the
+     index is a constant the compiler does not complain but fails to get the address
+     if optimization is enabled), a struct name or a struct field name, a function
+     identifier, a linker defined identifier,...
+   - The returned value is the identifier's VMA (virtual memory address) determined
+     by the linker and falls in the corresponding memory region. The AVR Harvard
+     architecture requires non overlapping VMA areas for the multiple address spaces
+     in the processor: Flash ROM, RAM, and EEPROM. Typical offset for this are
+     0x00000000, 0x00800xx0, and 0x00810000 respectively, derived from the linker
+     script used and linker options. The value returned can be seen then as a
+     universal pointer.
 */
 /** \ingroup avr_pgmspace
     \fn const void * memchr_P(const void *s, int val, size_t len)
@@ -4410,19 +4360,6 @@ extern int strcasecmp_PF(const char *s1, uint_farptr_t s2) __attribute__((__pure
     contents of RAMPZ SFR are undefined when the function returns.  */
 extern int strncasecmp_PF(const char *s1, uint_farptr_t s2, size_t n) __attribute__((__pure__));
 /** \ingroup avr_pgmspace
-    \fn uint_farptr_t strchr_PF(uint_farptr_t s, int val)
-    \brief Locate character in far program space string.
-    The strchr_PF() function locates the first occurrence of \p val
-    (converted to a char) in the string pointed to by \p s in far program
-    space. The terminating null character is considered to be part of
-    the string.
-    The strchr_PF() function is similar to strchr() except that \p s is
-    a far pointer to a string in program space that's \e not \e required to be
-    located in the lower 64 KiB block like it is the case  for strchr_P().
-    \returns The strchr_PF() function returns a far pointer to the matched
-    character or \c 0 if the character is not found. */
-extern uint_farptr_t strchr_PF(uint_farptr_t, int __val) __attribute__((__const__));
-/** \ingroup avr_pgmspace
     \fn char *strstr_PF(const char *s1, uint_farptr_t s2)
     \brief Locate a substring.
     The strstr_PF() function finds the first occurrence of the substring \c s2
@@ -4458,9 +4395,8 @@ extern size_t strlcpy_PF(char *dst, uint_farptr_t src, size_t siz);
     \p len bytes of \p s2.  */
 extern int memcmp_PF(const void *, uint_farptr_t, size_t) __attribute__((__pure__));
 extern size_t __strlen_P(const char *) __attribute__((__const__)); /* internal helper function */
-static __inline__ __attribute__((__always_inline__)) size_t strlen_P(const char * s);
-size_t strlen_P(const char *s)
-{
+__attribute__((__always_inline__)) static __inline__ size_t strlen_P(const char * s);
+static __inline__ size_t strlen_P(const char *s) {
   return __builtin_constant_p(__builtin_strlen(s))
      ? __builtin_strlen(s) : __strlen_P(s);
 }
@@ -4886,7 +4822,8 @@ _delay_loop_2(uint16_t __count)
  __asm__ volatile (
   "1: sbiw %0,1" "\n\t"
   "brne 1b"
-  : "+w" (__count)
+  : "=w" (__count)
+  : "0" (__count)
  );
 }
 void _delay_zero() {
@@ -5453,7 +5390,7 @@ void adc_voltage_mode() {
 // Each full cycle runs ~2X per second with just voltage enabled,
 // or ~1X per second with voltage and temperature.
 // happens every time the ADC sampler finishes a measurement
-void __vector_14 (void) __attribute__ ((__signal__,__used__, __externally_visible__)) ; void __vector_14 (void) 
+void __vector_14 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_14 (void) 
              {
     // clear the interrupt flag
     ;
@@ -5730,7 +5667,7 @@ void battcheck() {
    avr/wdt.h - macros for AVR watchdog timer
  */
 // clock tick -- this runs every 16ms (62.5 fps)
-void __vector_5 (void) __attribute__ ((__signal__,__used__, __externally_visible__)) ; void __vector_5 (void) 
+void __vector_5 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_5 (void) 
              {
     ;
     irq_wdt = 1; // WDT event happened
@@ -5883,7 +5820,7 @@ uint8_t button_is_pressed() {
     button_last_state = value;
     return value;
 }
-void __vector_2 (void) __attribute__ ((__signal__,__used__, __externally_visible__)) ; void __vector_2 (void) 
+void __vector_2 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_2 (void) 
                 {
     ;
     irq_pcint = 1; // let deferred code know an interrupt happened
@@ -6068,7 +6005,7 @@ void set_channel_mode(uint8_t mode) {
 inline void set_level_aux_leds(uint8_t level) {
         if (! go_to_standby) {
                 rgb_led_set(0);
-                    button_led_set((level > 0) + (level > 70));
+                    button_led_set((level > 0) + (level > 85));
         }
 }
 void set_level(uint8_t level) {
@@ -6125,9 +6062,9 @@ uint8_t pseudo_rand() {
     offset = ((offset + 1) & 0x0fff) | 0x0400;
     pseudo_rand_seed += 0b01010101; // 85
     return 
-          (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+          (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
           offset
-          )); uint8_t __result; __asm __volatile__ ("lpm %0,%a1" : "=r" (__result) : "z" (__addr16)); __result; })) 
+          )); uint8_t __result; __asm__ __volatile__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; })) 
                                 + pseudo_rand_seed;
 }
 // fsm-eeprom.c: EEPROM API for SpaghettiMonster.
@@ -6477,9 +6414,9 @@ void set_level_zero() {
 void set_level_main(uint8_t level) {
     if (level == actual_level - 1) return; // prevent flicker on no-op
     uint16_t ch1 = 
-                      (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+                      (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
                       pwm1_levels+level
-                      )); uint16_t __result; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__result), "+z" (__addr16)); __result; }))
+                      )); uint16_t __result; __asm__ __volatile__ ( "lpm %A0, Z+" "\n\t" "lpm %B0, Z" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) ); __result; }))
                                                  ;
     // set delta-sigma soft levels
     ch1_dsm_lvl = ch1;
@@ -6512,7 +6449,7 @@ void set_level_main(uint8_t level) {
 // delta-sigma modulation of PWM outputs
 // happens on each Timer overflow (every 512 cpu clock cycles)
 // uses 8-bit pwm w/ 7-bit dsm (0b 0PPP PPPP PDDD DDDD)
-void __vector_9 (void) __attribute__ ((__signal__,__used__, __externally_visible__)) ; void __vector_9 (void) 
+void __vector_9 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_9 (void) 
              {
     // set new hardware values first,
     // for best timing (reduce effect of interrupt jitter)
@@ -6529,9 +6466,9 @@ void __vector_9 (void) __attribute__ ((__signal__,__used__, __externally_visible
 }
 uint8_t gradual_tick_main(uint8_t gt) {
     uint16_t ch1 = 
-                      (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+                      (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
                       pwm1_levels+gt
-                      )); uint16_t __result; __asm __volatile__ ("lpm %A0,%a1+" "\n\t" "lpm %B0,%a1+" : "=r" (__result), "+z" (__addr16)); __result; }))
+                      )); uint16_t __result; __asm__ __volatile__ ( "lpm %A0, Z+" "\n\t" "lpm %B0, Z" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) ); __result; }))
                                               ;
     // adjust multiple times based on current brightness
     // (so it adjusts faster/coarser when bright, slower/finer when dim)
@@ -6593,7 +6530,7 @@ uint8_t memorized_level = 70;
     void manual_memory_save();
 // current values, regardless of style
 uint8_t ramp_floor = 8;
-uint8_t ramp_ceil = 130;
+uint8_t ramp_ceil = 150;
 uint8_t ramp_discrete_step_size; // don't set this
 uint8_t sunset_timer_orig_level = 0;
 void reset_sunset_timer();
@@ -6691,7 +6628,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "19-08-2024";
+             uint8_t version_number[] = "0273" "." "0.518faf3";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6818,8 +6755,8 @@ Config cfg = {
                 8,
             },
         .ramp_ceils = {
-            130,
-            130,
+            150,
+            150,
                 30,
             },
         .ramp_stepss = {
@@ -7758,9 +7695,9 @@ uint8_t voltage_to_rgb() {
     for (i = 0; volts >= levels[i]; i += 2) {}
     uint8_t color_num = levels[(i - 2) + 1];
     return 
-          (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+          (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
           rgb_led_colors + color_num
-          )); uint8_t __result; __asm __volatile__ ("lpm %0,%a1" : "=r" (__result) : "z" (__addr16)); __result; }))
+          )); uint8_t __result; __asm__ __volatile__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; }))
                                                    ;
 }
 // do fancy stuff with the RGB aux LEDs
@@ -7796,17 +7733,17 @@ void rgb_led_update(uint8_t mode, uint16_t arg) {
     uint8_t actual_color = 0;
     if (color < 7) { // normal color
         actual_color = 
-                      (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+                      (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
                       colors + color
-                      )); uint8_t __result; __asm __volatile__ ("lpm %0,%a1" : "=r" (__result) : "z" (__addr16)); __result; }))
+                      )); uint8_t __result; __asm__ __volatile__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; }))
                                                    ;
     }
     else if (color == 7) { // disco
         rainbow = (rainbow + 1 + pseudo_rand() % 5) % 6;
         actual_color = 
-                      (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+                      (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
                       colors + rainbow
-                      )); uint8_t __result; __asm __volatile__ ("lpm %0,%a1" : "=r" (__result) : "z" (__addr16)); __result; }))
+                      )); uint8_t __result; __asm__ __volatile__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; }))
                                                      ;
     }
     else if (color == 8) { // rainbow
@@ -7816,9 +7753,9 @@ void rgb_led_update(uint8_t mode, uint16_t arg) {
             rainbow = (rainbow + 1) % 6;
         }
         actual_color = 
-                      (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+                      (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
                       colors + rainbow
-                      )); uint8_t __result; __asm __volatile__ ("lpm %0,%a1" : "=r" (__result) : "z" (__addr16)); __result; }))
+                      )); uint8_t __result; __asm__ __volatile__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; }))
                                                      ;
     }
     else { // voltage
@@ -7830,9 +7767,9 @@ void rgb_led_update(uint8_t mode, uint16_t arg) {
         // ... but during preview, cycle colors quickly
         else {
             actual_color = 
-                          (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+                          (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
                           colors + (((arg>>1) % 3) << 1)
-                          )); uint8_t __result; __asm __volatile__ ("lpm %0,%a1" : "=r" (__result) : "z" (__addr16)); __result; }))
+                          )); uint8_t __result; __asm__ __volatile__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; }))
                                                                        ;
         }
     }
@@ -7963,9 +7900,9 @@ uint8_t version_check_state(Event event, uint16_t arg) {
 inline void version_check_iter() {
     for (uint8_t i=0; i<sizeof(version_number)-1; i++) {
         uint8_t digit = 
-                       (__extension__({ uint16_t __addr16 = (uint16_t) ((uint16_t)(
+                       (__extension__({ uint16_t __addr16 = (uint16_t)((uint16_t)(
                        version_number + i
-                       )); uint8_t __result; __asm __volatile__ ("lpm %0,%a1" : "=r" (__result) : "z" (__addr16)); __result; })) 
+                       )); uint8_t __result; __asm__ __volatile__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; })) 
                                                          - '0';
         //       digits: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
         //   hex digits: 0 1 2 3 4 5 6 7 8 9  a  b  c  d  e  f

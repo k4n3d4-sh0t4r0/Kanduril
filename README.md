@@ -169,6 +169,14 @@ set `#define RAMP_DISCRETE_FLOOR` to `8` \
 <details>
   <summary>Set ramp speed a 1/2 speed</summary>
 
+- Set 150 for the ramp ceiling \
+set `#define RAMP_SMOOTH_CEIL` to `150` \
+*Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
+</details>
+
+<details>
+  <summary>Set ramp speed a 1/2 speed</summary>
+
 - Set to 2 for 1/2 \
 add `#define DEFAULT_RAMP_SPEED 2` \
 *Kanduril/ui/anduril/config-default.h*
@@ -538,6 +546,14 @@ delete the `else if (event == EV_click1_release)` function
 *Kanduril/ui/anduril/off-mode.c*
 </details>
 
+<details>
+  <summary>Change the level where the button leds go to high when ramping to 85</summary>
+
+- Change the level to 90 instead of DEFAULT_LEVEL \
+change every `button_led_set((level > 0) + (level > DEFAULT_LEVEL));` to `button_led_set((level > 0) + (level > 85));` \
+*Kanduril/fsm/ramping.c*
+</details>
+
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit
 
 Anduril is a user interface for flashlights.  It is written with FSM, a UI
@@ -568,6 +584,9 @@ hardware model and any hardware-specific documentation.
 
 
 ## Flashing Firmware
+
+Flashing command exemple :\
+`sudo avrdude -p t1634 -c usbasp -U flash:w:anduril.hank-noctigon-dm11-boost.hex`
 
 Get the latest updates by flashing new firmware!
 
