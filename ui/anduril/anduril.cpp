@@ -6628,7 +6628,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "0.518faf3";
+             uint8_t version_number[] = "0273" "." "2025-02-06";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.

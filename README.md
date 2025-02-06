@@ -6,7 +6,7 @@ It may not work properly on other flashlights as it's based and work on the mode
 
 ## Diagrams
 
-![diagrams](diagrams/kanduril_diagram.png)
+![diagrams](diagrams/kanduril_diagram_2025-02-06.png)
 
 ## Changes
 
@@ -552,6 +552,14 @@ delete the `else if (event == EV_click1_release)` function
 - Change the level to 90 instead of DEFAULT_LEVEL \
 change every `button_led_set((level > 0) + (level > DEFAULT_LEVEL));` to `button_led_set((level > 0) + (level > 85));` \
 *Kanduril/fsm/ramping.c*
+</details>
+
+<details>
+  <summary>Change the version to a chosen value instead of a github tags</summary>
+
+- Replace the method of finding the version to a simple chosen value \
+replace the inside of `function main` to only `echo "2025-02-06"` \
+*Kanduril/bin/version-string.sh*
 </details>
 
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit

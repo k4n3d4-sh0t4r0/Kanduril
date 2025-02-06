@@ -7,27 +7,7 @@
 # Prints in C or Git format.  Defaults to both.
 
 function main {
-    # eat first arg if invoked via 'make'
-    [[ "version" = "$1" ]] && shift
-
-    # default to showing both formats
-    ARGS="$*"
-    [[ -z "$ARGS" ]] && ARGS="both"
-
-    for arg in $ARGS ; do
-        case "$arg" in
-            git|g)
-                git-describe
-                ;;
-            c|C)
-                c-version-string
-                ;;
-            *)
-                echo -n 'C:	' ; c-version-string
-                echo -n 'git:	' ; git-describe
-                ;;
-        esac
-    done
+    echo "2025-02-06"
 }
 
 function git-describe {
