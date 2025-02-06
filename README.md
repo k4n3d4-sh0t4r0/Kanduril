@@ -167,7 +167,7 @@ set `#define RAMP_DISCRETE_FLOOR` to `8` \
 </details>
 
 <details>
-  <summary>Set ramp speed a 1/2 speed</summary>
+  <summary>Set ramp ceiling to 150</summary>
 
 - Set 150 for the ramp ceiling \
 set `#define RAMP_SMOOTH_CEIL` to `150` \
