@@ -6005,7 +6005,7 @@ void set_channel_mode(uint8_t mode) {
 inline void set_level_aux_leds(uint8_t level) {
         if (! go_to_standby) {
                 rgb_led_set(0);
-                    button_led_set((level > 0) + (level > 85));
+                    button_led_set((level > 0) + (level > 100));
         }
 }
 void set_level(uint8_t level) {
@@ -6769,8 +6769,8 @@ Config cfg = {
             // 0 = no turbo, 1 = A1 style, 2 = A2 style
             .ramp_2c_style_simple = 0,
         .dont_ramp_after_moon = 1,
-        .manual_memory = 0,
-            .manual_memory_timer = 0,
+        .manual_memory = 30,
+            .manual_memory_timer = 5,
     ///// channel modes / color modes
         // current multi-channel mode
         .channel_mode = CM_MAIN,

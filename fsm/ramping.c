@@ -27,7 +27,7 @@ inline void set_level_aux_leds(uint8_t level) {
             #ifdef USE_AUX_RGB_LEDS
                 rgb_led_set(0);
                 #ifdef USE_BUTTON_LED
-                    button_led_set((level > 0) + (level > 85));
+                    button_led_set((level > 0) + (level > 100));
                 #endif
             #endif
         }

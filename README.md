@@ -190,7 +190,7 @@ add `#define DEFAULT_RAMP_SPEED 2` \
 </details>
 
 <details>
-  <summary>Set the jump start at reamp floor level</summary>
+  <summary>Set the jump start at ramp floor level</summary>
 
 - set `#define DEFAULT_JUMP_START_LEVEL` to `RAMP_SMOOTH_FLOOR` \
 *Kanduril/hw/hank/noctigon-dm11/boost/anduril.h*
@@ -547,11 +547,23 @@ delete the `else if (event == EV_click1_release)` function
 </details>
 
 <details>
-  <summary>Change the level where the button leds go to high when ramping to 85</summary>
+  <summary>Change the level where the button leds go to high when ramping to 100</summary>
 
-- Change the level to 90 instead of DEFAULT_LEVEL \
-change every `button_led_set((level > 0) + (level > DEFAULT_LEVEL));` to `button_led_set((level > 0) + (level > 85));` \
+- Change the level to 100 instead of DEFAULT_LEVEL \
+change every `button_led_set((level > 0) + (level > DEFAULT_LEVEL));` to `button_led_set((level > 0) + (level > 100));` \
 *Kanduril/fsm/ramping.c*
+</details>
+
+<details>
+  <summary>Enable manual memory to level 40 and memory timer to 5min by default</summary>
+
+- Enable manual memory and set it to level 40 by default \
+add `#define DEFAULT_MANUAL_MEMORY 30` \
+*Kanduril/ui/anduril/config-default.h*
+
+- Enable manual memory timer and set it to 5min by default \
+add `#define DEFAULT_MANUAL_MEMORY_TIMER 5` \
+*Kanduril/ui/anduril/config-default.h*
 </details>
 
 <details>
