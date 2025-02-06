@@ -555,9 +555,9 @@ change every `button_led_set((level > 0) + (level > DEFAULT_LEVEL));` to `button
 </details>
 
 <details>
-  <summary>Enable manual memory to level 40 and memory timer to 5min by default</summary>
+  <summary>Enable manual memory to level 30 and memory timer to 5min by default</summary>
 
-- Enable manual memory and set it to level 40 by default \
+- Enable manual memory and set it to level 30 by default \
 add `#define DEFAULT_MANUAL_MEMORY 30` \
 *Kanduril/ui/anduril/config-default.h*
 
