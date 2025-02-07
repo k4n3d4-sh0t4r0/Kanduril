@@ -6,7 +6,7 @@ It may not work properly on other flashlights as it's based and work on the mode
 
 ## Diagrams
 
-![diagrams](diagrams/kanduril_diagram_2025-02-06.png)
+![diagrams](images/kanduril_diagram_2025-02-06.png)
 
 ## Changes
 
@@ -573,6 +573,10 @@ add `#define DEFAULT_MANUAL_MEMORY_TIMER 5` \
 replace the inside of `function main` to only `echo "2025-02-06"` \
 *Kanduril/bin/version-string.sh*
 </details>
+
+## Auxiliary leds colors chart
+
+![diagrams](images/anduril_aux_leds_colors.png)
 
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit
 
