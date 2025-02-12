@@ -62,7 +62,7 @@ replace `arg = nearest_level(arg);` by
 <details>
   <summary>Dissociates LED configuration between simple and advanced modes to allow different colors for each mode</summary> 
 
-- Change LED color according to mode used when entering off-mode
+- Change LED color according to mode used when entering off-mode \
 replace `rgb_led_update(cfg.rgb_led_off_mode, arg);` in `#elif defined(USE_AUX_RGB_LEDS)` to:
   ```
   if (cfg.simple_ui_active == 1) {
@@ -74,7 +74,7 @@ replace `rgb_led_update(cfg.rgb_led_off_mode, arg);` in `#elif defined(USE_AUX_R
   ```
   *Kanduril/ui/anduril/off-mode.c*
 
-- Change the 7-click shortcut to change LED colors according to mode used
+- Change the 7-click shortcut to change LED colors according to mode used \
 change the `event == EV_7clicks` to:
   ```
   else if (event == EV_7clicks) {
@@ -97,7 +97,7 @@ change the `event == EV_7clicks` to:
   ```
   *Kanduril/ui/anduril/off-mode.c*
 
-- Change the 7-click-hold shortcut to change LED colors according to mode used
+- Change the 7-click-hold shortcut to change LED colors according to mode used \
 change the `event == EV_click7_hold` to:
   ```
   else if (event == EV_click7_hold) {
