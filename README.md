@@ -1,4 +1,4 @@
-# A clone of [Anduril by Toykeeper]([https://example.com](https://github.com/ToyKeeper/anduril))
+# A clone of [Anduril by Toykeeper](https://github.com/ToyKeeper/anduril)
 
 # Kanduril
 
