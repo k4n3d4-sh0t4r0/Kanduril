@@ -3558,6 +3558,7 @@ typedef struct Config {
         int8_t therm_cal_offset;
     ///// aux LEDs
         uint8_t rgb_led_off_mode;
+        uint8_t rgb_led_simple_off_mode;
         uint8_t rgb_led_lockout_mode;
             uint8_t post_off_voltage;
     ///// misc other mode settings
@@ -6628,7 +6629,7 @@ uint8_t sunset_timer_state(Event event, uint16_t arg);
        
 const 
      __attribute__((__progmem__)) 
-             uint8_t version_number[] = "0273" "." "2025-02-06";
+             uint8_t version_number[] = "0273" "." "2025-02-12";
 uint8_t version_check_state(Event event, uint16_t arg);
 inline void version_check_iter();
 // battcheck-mode.h: Battery check mode for Anduril.
@@ -6799,6 +6800,7 @@ Config cfg = {
         .therm_cal_offset = 0,
     ///// aux LEDs
         .rgb_led_off_mode = 0x13,
+        .rgb_led_simple_off_mode = 0x22,
         .rgb_led_lockout_mode = 0x19,
             // display voltage readout for a while after turning off?
             .post_off_voltage = 1,
@@ -6859,7 +6861,12 @@ uint8_t off_state(Event event, uint16_t arg) {
                 (arg >= (cfg.manual_memory_timer * 450))) {
             manual_memory_restore();
         }
-        rgb_led_update(cfg.rgb_led_off_mode, arg);
+        if (cfg.simple_ui_active == 1) {
+            rgb_led_update(cfg.rgb_led_simple_off_mode, arg);
+        }
+        else {
+            rgb_led_update(cfg.rgb_led_off_mode, arg);
+        }
             // lock the light after being off for N minutes
             uint16_t ticks = cfg.autolock_time * 450;
             if ((cfg.autolock_time > 0) && (arg > ticks)) {
@@ -6963,10 +6970,18 @@ uint8_t off_state(Event event, uint16_t arg) {
     }
     // 7 clicks: change RGB aux LED pattern
     else if (event == (0b10000000|0b01000000|7)) {
-        uint8_t mode = (cfg.rgb_led_off_mode >> 4) + 1;
-        mode = mode % 4;
-        cfg.rgb_led_off_mode = (mode << 4) | (cfg.rgb_led_off_mode & 0x0f);
-        rgb_led_update(cfg.rgb_led_off_mode, 0);
+        if (cfg.simple_ui_active == 1) {
+            uint8_t mode = (cfg.rgb_led_simple_off_mode >> 4) + 1;
+            mode = mode % 4;
+            cfg.rgb_led_simple_off_mode = (mode << 4) | (cfg.rgb_led_simple_off_mode & 0x0f);
+            rgb_led_update(cfg.rgb_led_simple_off_mode, 0);
+        }
+        else {
+            uint8_t mode = (cfg.rgb_led_off_mode >> 4) + 1;
+            mode = mode % 4;
+            cfg.rgb_led_off_mode = (mode << 4) | (cfg.rgb_led_off_mode & 0x0f);
+            rgb_led_update(cfg.rgb_led_off_mode, 0);
+        }
         save_config();
         blink_once();
         return 0;
@@ -6975,12 +6990,23 @@ uint8_t off_state(Event event, uint16_t arg) {
     else if (event == (0b10000000|0b00100000|0b00010000|7)) {
         setting_rgb_mode_now = 1;
         if (0 == (arg & 0x3f)) {
-            uint8_t mode = (cfg.rgb_led_off_mode & 0x0f) + 1;
-            mode = mode % 11;
-            cfg.rgb_led_off_mode = mode | (cfg.rgb_led_off_mode & 0xf0);
-            //save_config();
+            if (cfg.simple_ui_active == 1) {
+                uint8_t mode = (cfg.rgb_led_simple_off_mode & 0x0f) + 1;
+                mode = mode % 11;
+                cfg.rgb_led_simple_off_mode = mode | (cfg.rgb_led_simple_off_mode & 0xf0);
+            }
+            else {
+                uint8_t mode = (cfg.rgb_led_off_mode & 0x0f) + 1;
+                mode = mode % 11;
+                cfg.rgb_led_off_mode = mode | (cfg.rgb_led_off_mode & 0xf0);
+            }
         }
-        rgb_led_update(cfg.rgb_led_off_mode, arg);
+        if (cfg.simple_ui_active == 1) {
+            rgb_led_update(cfg.rgb_led_simple_off_mode, arg);
+        }
+        else {
+            rgb_led_update(cfg.rgb_led_off_mode, arg);
+        }
         return 0;
     }
     else if (event == (0b10000000|0b00100000|0b00000000|0b01000000|7)) {

@@ -60,6 +60,90 @@ replace `arg = nearest_level(arg);` by
 </details>
 
 <details>
+  <summary>Dissociates LED configuration between simple and advanced modes to allow different colors for each mode</summary> 
+
+- Change LED color according to mode used when entering off-mode
+replace `rgb_led_update(cfg.rgb_led_off_mode, arg);` in `#elif defined(USE_AUX_RGB_LEDS)` to:
+  ```
+  if (cfg.simple_ui_active == 1) {
+    rgb_led_update(cfg.rgb_led_simple_off_mode, arg);
+  }
+  else {
+    rgb_led_update(cfg.rgb_led_off_mode, arg);
+  }
+  ```
+  *Kanduril/ui/anduril/off-mode.c*
+
+- Change the 7-click shortcut to change LED colors according to mode used
+change the `event == EV_7clicks` to:
+  ```
+  else if (event == EV_7clicks) {
+      if (cfg.simple_ui_active == 1) {
+          uint8_t mode = (cfg.rgb_led_simple_off_mode >> 4) + 1;
+          mode = mode % RGB_LED_NUM_PATTERNS;
+          cfg.rgb_led_simple_off_mode = (mode << 4) | (cfg.rgb_led_simple_off_mode & 0x0f);
+          rgb_led_update(cfg.rgb_led_simple_off_mode, 0);
+      }
+      else {
+          uint8_t mode = (cfg.rgb_led_off_mode >> 4) + 1;
+          mode = mode % RGB_LED_NUM_PATTERNS;
+          cfg.rgb_led_off_mode = (mode << 4) | (cfg.rgb_led_off_mode & 0x0f);
+          rgb_led_update(cfg.rgb_led_off_mode, 0);
+      }
+      save_config();
+      blink_once();
+      return EVENT_HANDLED;
+  }
+  ```
+  *Kanduril/ui/anduril/off-mode.c*
+
+- Change the 7-click-hold shortcut to change LED colors according to mode used
+change the `event == EV_click7_hold` to:
+  ```
+  else if (event == EV_click7_hold) {
+      setting_rgb_mode_now = 1;
+      if (0 == (arg & 0x3f)) {
+          if (cfg.simple_ui_active == 1) {
+              uint8_t mode = (cfg.rgb_led_simple_off_mode & 0x0f) + 1;
+              mode = mode % RGB_LED_NUM_COLORS;
+              cfg.rgb_led_simple_off_mode = mode | (cfg.rgb_led_simple_off_mode & 0xf0);
+          }
+          else {
+              uint8_t mode = (cfg.rgb_led_off_mode & 0x0f) + 1;
+              mode = mode % RGB_LED_NUM_COLORS;
+              cfg.rgb_led_off_mode = mode | (cfg.rgb_led_off_mode & 0xf0);
+          }
+      }
+      if (cfg.simple_ui_active == 1) {
+          rgb_led_update(cfg.rgb_led_simple_off_mode, arg);
+      }
+      else {
+          rgb_led_update(cfg.rgb_led_off_mode, arg);
+      }
+      return EVENT_HANDLED;
+  }
+  ```
+  *Kanduril/ui/anduril/off-mode.c*
+
+- Add the variable of the LED color in simple mode \
+add `uint8_t rgb_led_simple_off_mode;` to `USE_AUX_RGB_LEDS` \
+*Kanduril/ui/anduril/load-save-config-fsm.h*
+
+- Add option to change auxiliary LED colors in simple mode \
+add `.rgb_led_simple_off_mode = RGB_LED_SIMPLE_OFF_DEFAULT,` to `#ifdef USE_AUX_RGB_LEDS` \
+*Kanduril/ui/anduril/load-save-config.h*
+
+- Set option to change auxiliary LED colors in simple mode \
+  add:
+  ```
+  #ifndef RGB_LED_SIMPLE_OFF_DEFAULT
+  #define RGB_LED_SIMPLE_OFF_DEFAULT 0x22  // high, green
+  #endif
+  ```
+  *Kanduril/ui/anduril/aux-leds.h*
+</details>
+
+<details>
   <summary>Switch SOS and Beacon mode to make SOS first</summary>
 
 - Change order on battery check state 

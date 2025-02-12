@@ -39,6 +39,9 @@ const PROGMEM uint8_t rgb_led_colors[] = {
 #define RGB_LED_OFF_DEFAULT 0x13  // low, cyan
 //#define RGB_LED_OFF_DEFAULT 0x18  // low, rainbow
 #endif
+#ifndef RGB_LED_SIMPLE_OFF_DEFAULT
+#define RGB_LED_SIMPLE_OFF_DEFAULT 0x22  // high, green
+#endif
 #ifndef RGB_LED_LOCKOUT_DEFAULT
 #define RGB_LED_LOCKOUT_DEFAULT 0x19  // low, voltage
 //#define RGB_LED_LOCKOUT_DEFAULT 0x37  // blinking, disco

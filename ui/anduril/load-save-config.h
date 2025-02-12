@@ -147,6 +147,7 @@ Config cfg = {
     #endif
     #ifdef USE_AUX_RGB_LEDS
         .rgb_led_off_mode = RGB_LED_OFF_DEFAULT,
+        .rgb_led_simple_off_mode = RGB_LED_SIMPLE_OFF_DEFAULT,
         .rgb_led_lockout_mode = RGB_LED_LOCKOUT_DEFAULT,
         #ifdef USE_POST_OFF_VOLTAGE
             // display voltage readout for a while after turning off?

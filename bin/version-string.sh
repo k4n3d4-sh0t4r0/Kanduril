@@ -7,7 +7,7 @@
 # Prints in C or Git format.  Defaults to both.
 
 function main {
-    echo "2025-02-06"
+    echo "2025-02-12"
 }
 
 function git-describe {
