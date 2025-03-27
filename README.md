@@ -13,7 +13,7 @@ It may not work properly on other flashlights as it's based and work on the mode
 ## Changes
 
 <details>
-  <summary>Recreate a muggle mode like Anduril 1 (replace simple ui)</summary> 
+  <summary>Create a child mode (replace simple ui)</summary> 
 
 - Limit the ceiling of simple ui \
 set `#define SIMPLE_UI_CEIL` to `30` \
