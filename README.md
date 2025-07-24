@@ -4,7 +4,13 @@
 
 My configuration and modifications for anduril 2 firmware on my D4K single channel
 
-It may not work properly on other flashlights as it's based and work on the model n°0273. I'm describing everything I changed and where I changed it in each drop-down list if you want to do the same as my configuration.
+I've explained everything I've changed and where I've changed it in each drop-down list if you want to do the same as my configuration.
+
+# Important
+
+As my repo is made only for a Hank D4k, the purpose of my repo is not to compile directly from it. But rather to explain what can be done with the anduril firmware, and also to explain what needs to be changed to get there.
+
+**Some of the files and corresponding file paths I've explained are therefore only for the d4k. If you want to make the changes on another lamp. You'll need to make the changes I've made in the `Kanduril/hw/hank/` directory and subdirectory, in the directory corresponding to the lamp you want to compile.**
 
 ## Diagrams
 
