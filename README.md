@@ -669,6 +669,8 @@ replace the inside of `function main` to only `echo "2025-02-06"` \
 ## Auxiliary leds colors chart
 
 ![diagrams](images/anduril_aux_leds_colors.png)
+Also in some cases:
+`CM_AUXRED`, `CM_AUXYEL`, `CM_AUXGRN`, `CM_AUXCYN`, `CM_AUXBLU`, `CM_AUXPRP`, `CM_AUXWHT`
 
 # Anduril Flashlight Firmware + FSM Flashlight UI Toolkit
 
